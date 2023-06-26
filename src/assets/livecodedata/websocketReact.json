@@ -1,0 +1,36 @@
+
+    [
+    {
+    "title": "Create a new React component",
+    "description": "Begin by creating a new component in your React application. Let's name it ListWithAnimation"
+    },
+    {
+    "title": "Import the necessary dependencies",
+    "description": "Import React, the Tailwind CSS styles, the Framer Motion library, and any other required dependencies."
+    },
+    {
+    "title": "Define the ListWithAnimation component",
+    "description": "Declare the functional component and export it for use in other parts of your application. Provide the structure and logic for rendering the list with animation."
+    },
+    {
+    "title": "Pass the listData as a prop",
+    "description": "The component expects a prop called listData which should be an array of strings. This array contains the data that will be displayed as the list items."
+    },
+    {
+    "title": "Implement the list animation",
+    "description": "Use the Framer Motion library to animate the list items. Wrap each list item with the motion.li component and provide animation properties such as initial, animate, and transition."
+    },
+    {
+    "title": "Apply Tailwind CSS classes",
+    "description": "Utilize Tailwind CSS classes to style the list container, list items, and any other desired elements within the component."
+    },
+    {
+    "title": "Render the ListWithAnimation component",
+    "description": "In your desired parent component, import the ListWithAnimation component and pass the listData prop with the array of strings you want to display."
+    },
+    {
+    "title": "Style the component further",
+    "description": "Customize the appearance of the list and add additional CSS or Tailwind classes to achieve the desired visual effect."
+    }
+]
+    

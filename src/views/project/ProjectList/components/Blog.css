@@ -1,0 +1,75 @@
+.blog-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .blog-content {
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  
+  .blog-content h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  .blog-content h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  .blog-content h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .blog-content p {
+    margin-bottom: 10px;
+  }
+  
+  .blog-content a {
+    color: rgb(199, 233, 10);
+  }
+  
+  .blog-content ul {
+    list-style-type: decimal;
+    margin-left: 20px;
+  }
+  
+  .blog-content ol {
+    list-style-type: decimal;
+    margin-left: 20px;
+  }
+
+  .blog-content p:hover::after {
+    /* Styles for the pseudo-element */
+    content: attr(data-link);
+    /* Additional styles for the link appearance */
+    color: rgb(115, 28, 28);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+ 
+  .blog-content code {
+    font-family: 'Roboto', sans-serif;
+    
+    padding: 2px 5px;
+    border-radius: 4px;
+  }
+
+  .blog-code {
+  
+   
+    padding: 1rem;
+    overflow-x: auto;
+  }
+  
+  .blog-code code {
+    display: block;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+  }
+  

@@ -1,0 +1,49 @@
+[
+    {
+      "topic": "Introduction to AI",
+      "questions": [
+        {
+          "question": "What is AI",
+          "description": "Exploring the definition and goals of Artificial Intelligence"
+        },
+        {
+          "question": "Aplications of AI",
+          "description": "Exploring the real-world applications of AI"
+        }
+      ]
+    },
+    {
+      "topic": "Machine Learning",
+      "questions": [
+        {
+          "question": "Supervised learning",
+          "description": "Understanding supervised learning and its algorithms"
+        },
+        {
+          "question": "Unsupervised learning",
+          "description": "Understanding unsupervised learning and its algorithms"
+        },
+        {
+          "question": "Reinforcement learning",
+          "description": "Understanding reinforcement learning and its algorithms"
+        }
+      ]
+    },
+    {
+      "topic": "Natural Language Processing",
+      "questions": [
+        {
+          "question": "Text preprocessing",
+          "description": "Cleaning and preparing textual data for analysis"
+        },
+        {
+          "question": "Sentiment analysis",
+          "description": "Analyzing and classifying the sentiment of textual data"
+        },
+        {
+          "question": "Named Entity Recognition",
+          "description": "Identifying and classifying named entities in text"
+        }
+      ]
+    }
+  ]

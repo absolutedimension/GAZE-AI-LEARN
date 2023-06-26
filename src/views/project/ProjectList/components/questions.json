@@ -1,0 +1,43 @@
+[
+    {
+      "topic": "Plan Development",
+      "questions": [
+        {
+          "question": "New application/Feature",
+          "description": "Exploring the definition and goals of Artificial Intelligence"
+        }
+       
+      ]
+    },
+    {
+      "topic": "Implementation",
+      "questions": [
+        {
+          "question": "All use cases",
+          "description": "Understanding supervised learning and its algorithms"
+        },
+        {
+          "question": "Single Use case",
+          "description": "Understanding unsupervised learning and its algorithms"
+        },
+        {
+          "question": "See the code",
+          "description": "Understanding reinforcement learning and its algorithms"
+        }
+      ]
+    },
+    {
+      "topic": "Progress",
+      "questions": [
+        {
+          "question": "Steps Completed",
+          "description": "Cleaning and preparing textual data for analysis"
+        },
+        {
+          "question": "Esitamtion",
+          "description": "Analyzing and classifying the sentiment of textual data"
+        }
+        
+      ]
+    }
+  ]

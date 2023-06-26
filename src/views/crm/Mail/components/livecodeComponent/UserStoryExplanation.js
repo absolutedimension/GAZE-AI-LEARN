@@ -29,7 +29,7 @@ import ReactMarkdown from 'react-markdown';
 
 import { getCodeUserStory } from 'store/tutor/implementedCodeSlice'
 
-import { setMessageAddress } from "../../../../../store/tutor/tutor";
+import { setMessageAddress,deleteHistoryimplementCodeStringStream } from "../../../../../store/tutor/tutor";
 
 import { setCurrentTabUserStory } from 'store/tutor/userStorySlice';
 
@@ -131,11 +131,11 @@ const UserStoryExplanation = () => {
 
         const newMessage = {
             id: generateRandomId,
-            prompt: "As a user, I want to be able to create an account and log in to my portfolio website so that I can access my personal information and update my portfolio.implement as Rectjs component and give the code step by step",
+            prompt: userStoryStringStream[0]+"implement this by giving code step by step for developer to understand",
             last_context: '',
             isMe: true,
         };
-
+        dispatch(deleteHistoryimplementCodeStringStream());
         dispatch(setMessageAddress("code"));
         dispatch(setCurrentTabUserStory("tab3"));
         dispatch(getCodeUserStory(newMessage));

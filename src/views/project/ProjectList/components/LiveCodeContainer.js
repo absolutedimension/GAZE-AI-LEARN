@@ -1,7 +1,7 @@
 
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
-import React, { useState ,useSelector} from "react";
+import React, { useState, useSelector } from "react";
 import MonacoEditor from "@monaco-editor/react";
 import { motion } from "framer-motion";
 
@@ -46,7 +46,7 @@ const Pill = () => {
     <div>
       <Tabs defaultValue="tab1">
         <TabList>
-          
+
           <TabNav value="tab0">Features to Develop</TabNav>
           <TabNav value="tab1">Implement Single Feature</TabNav>
           <TabNav value="tab2">Explanation</TabNav>
@@ -54,15 +54,15 @@ const Pill = () => {
           <TabNav value="tab4">Tutor</TabNav>
         </TabList>
         <div className="p-4">
-        
-        <TabContent value="tab0">
-          {/* <Step2/>
+
+          <TabContent value="tab0">
+            {/* <Step2/>
           <Step2/>
            <QuickStart/> */}
-          {/* <UserStoryCardList/> */}
-           {/* <BuildUserStory/> */}
-           {/* <ListUserStories/> */}
-          
+            {/* <UserStoryCardList/> */}
+            {/* <BuildUserStory/> */}
+            {/* <ListUserStories/> */}
+
           </TabContent>
           <TabContent value="tab1">
             <div>Step 1: Create the Registration Form Component
@@ -84,7 +84,7 @@ const Pill = () => {
               Inside the component, design and implement a form that includes fields for username, email, and password.
               Use controlled inputs to handle user input and store the values in component state.</div>
           </TabContent>
-         
+
         </div>
       </Tabs>
     </div>
@@ -139,13 +139,23 @@ const LiveCodeContainer = () => {
 
   return (
 
-   
-      <AdaptableCard
-        className="h-full overflow-hidden"
-        bodyClass="p-0 h-full absolute inset-0 flex min-w-0 overflow-hidden"
-      >
-        {/* Left Panel */}
-        <div className="flex flex-auto w-full">
+
+    <AdaptableCard
+      className="h-full overflow-hidden"
+      bodyClass="p-0 h-full absolute inset-0 flex min-w-0 overflow-hidden"
+    >
+      {/* Left Panel */}
+      <div className="flex flex-auto w-full">
+
+
+        {/* <iframe
+          src="https://glitch.com/embed/#!/embed/statuesque-spring-thing?path=.env&previewSize=0"
+          title="statuesque-spring-thing on Glitch"
+          allow="geolocation; microphone; camera; midi; encrypted-media; xr-spatial-tracking; fullscreen"
+          allowFullScreen
+          style="height: 100%; width: 100%; border: 0;">
+        </iframe> */}
+
         <iframe
             src="https://glitch.com/embed/#!/embed/reactwebapp?path=src/app.jsx&previewSize=0&attributionHidden=true"
             title="ReactWebApp"
@@ -153,21 +163,21 @@ const LiveCodeContainer = () => {
             allowFullScreen
             style={{ height: '100%', width: '100%', border: 0 }}
           ></iframe>
-          {/* <Pill />  */}
-          <UserStoryCardList/>
-        </div>
-        {/* <TrainingTopics/> */}
-      {<UserJourneyMenu/>}
-        {/* <Pill /> */}
-        {/* <LiveCodeUserStory/> */}
+        {/* <Pill />  */}
+        <UserStoryCardList />
+      </div>
+      {/* <TrainingTopics/> */}
+      {<UserJourneyMenu />}
+      {/* <Pill /> */}
+      {/* <LiveCodeUserStory/> */}
 
 
-        {/* Right Panel */}
-       
-         
-     
-      </AdaptableCard>
-   
+      {/* Right Panel */}
+
+
+
+    </AdaptableCard>
+
   );
 };
 

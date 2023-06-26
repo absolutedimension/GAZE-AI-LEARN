@@ -29,6 +29,8 @@ import InputTutor from '../InputTutor'
 
 import ReactMarkdown from 'react-markdown';
 
+import {getCodeUserStory} from '../../../../../store/tutor/implementedCodeSlice'
+
 
 
 
@@ -346,30 +348,21 @@ const UserStoryCode = () => {
     //     </div>
     // );
 
-    function parseDataToArray(data) {
-        // Regular expression pattern to match array elements and their children
-        var regex = /(\w+)\s*\((.*?)\)/g;
-      
-        var result = [];
-        var match;
-      
-        // Loop through all matches found in the data string
-        while ((match = regex.exec(data)) !== null) {
-          var element = {
-            name: match[1],
-            children: parseDataToArray(match[2]) // Recursive call to parse children
-          };
-      
-          result.push(element);
-        }
-      
-        return result;
-      }
-      
-      // Example usage
-    //   var data = "array1(child1, child2), array2(child3), array3";
-    //   var parsedArray = parseDataToArray(data);
-    //   console.log(parsedArray);
+    const handleClick = (values) => {
+
+
+        const newMessage = {
+            id: generateRandomId,
+            prompt: implementCodeStringStream[0]+"implement this by giving code step by step.",
+            last_context: '',
+            isMe: true,
+        };
+      //  dispatch(deleteHistoryimplementCodeStringStream());
+     //   dispatch(setMessageAddress("code"));
+      //  dispatch(setCurrentTabUserStory("tab3"));
+        dispatch(getCodeUserStory(newMessage));
+
+    }
       
 
     const markdownContent = implementCodeStringStream[0] ? (
@@ -388,6 +381,15 @@ const UserStoryCode = () => {
              //   mailId ? 'hidden xl:flex' : 'xs:flex'
             )}
         >
+             <Button
+                disabled={!true}
+                variant="twoTone"
+                className="mt-4 md:mt-0"
+                size="sm"
+                onClick={handleClick}
+            >
+                {"View Code"}
+            </Button>
             {/* <div className="relative flex flex-0 items-center justify-between min-h-[55px] border-gray-200 dark:border-gray-600">
                 <div className="flex items-center gap-1">
                     <ToggleButton

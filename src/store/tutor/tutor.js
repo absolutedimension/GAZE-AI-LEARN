@@ -73,6 +73,14 @@ export const tutor = createSlice({
     takeTest: (state, action) => {
       state.takeTest = action.payload;
     },
+    deleteHistoryUserStory: (state, action) => {
+      state.userStoryStringStream = [];
+      state.userStoryCharStream = [];
+    },
+    deleteHistoryimplementCodeStringStream: (state, action) => {
+      state.implementCodeStringStream = [];
+      state.implementCodeCharStream = [];
+    },
     setMessageAddress: (state, action) => {
       state.messageAddress = action.payload;
     },
@@ -282,7 +290,7 @@ export const tutor = createSlice({
   },
 })
 
-export const { sendPromptChatGPT, updateHistoryLiveCode,setMessageAddress,updateHistory, newCardAdded, extractedData, showUserStory, sendMessageToChatBox, takeTest, setNewStory, setChatFromStream, webSocketConnected, webSocketError, webSocketDisconneted, messageRecieved, messageSent } = tutor.actions
+export const { sendPromptChatGPT,deleteHistoryimplementCodeStringStream,deleteHistoryUserStory, updateHistoryLiveCode,setMessageAddress,updateHistory, newCardAdded, extractedData, showUserStory, sendMessageToChatBox, takeTest, setNewStory, setChatFromStream, webSocketConnected, webSocketError, webSocketDisconneted, messageRecieved, messageSent } = tutor.actions
 
 export default tutor.reducer
 

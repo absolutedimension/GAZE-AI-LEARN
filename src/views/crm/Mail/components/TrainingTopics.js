@@ -127,7 +127,7 @@ const MailSideBarContent = () => {
                             </MenuItem>
                         ))}
                     </Menu> */}
-                    <Menu variant="dark" className="mx-2 mb-6">
+                    <Menu variant="transparent" className="mx-2 mb-6">
                         {questionData.map((category) => (
                             <MenuGroup key={category.topic} label={""}>
                                 <Menu.MenuCollapse eventKey={`group-${category.topic}-item-3`} label={category.topic}>

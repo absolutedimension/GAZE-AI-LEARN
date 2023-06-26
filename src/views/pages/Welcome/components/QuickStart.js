@@ -11,7 +11,7 @@ import { Loading } from 'components/shared'
 
 import { sendPromptChatGPT ,getChatGPTApiData,sendMessageToChatBox,getDetailUserStory,setCurrentTabUserStory} from "../../../../store/tutor/userStorySlice";
 
-import {setMessageAddress} from "../../../../store/tutor/tutor";
+import {setMessageAddress,deleteHistoryUserStory} from "../../../../store/tutor/tutor";
 
 
 
@@ -69,11 +69,11 @@ const QuickStartItem = (props) => {
     const handleClick = (values) => {
         if (available) {
 
-           // console.log("values to print===="+JSON.stringify(index));
+            console.log("values to print===="+desc);
           
                 const newMessage = {
                   id: generateRandomId,
-                  prompt: "write detail user story to develop create an account and log in to my portfolio website so that I can access my personal information and update my portfolio.",
+                  prompt: desc+ "create this user story step by step so that its easy for developer to understand in implementing.",
                   last_context:'',
                   isMe: true,
                 };
@@ -82,6 +82,7 @@ const QuickStartItem = (props) => {
              //  console.log("before calling"+message);
              //  sendPromptChatGPT(message);
          //      dispatch(sendMessageToChatBox(message));
+                dispatch(deleteHistoryUserStory());
                 dispatch(setMessageAddress("userStory"));
                 dispatch(setCurrentTabUserStory("tab2"));
                dispatch(getDetailUserStory(newMessage));

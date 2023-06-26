@@ -1,5 +1,4 @@
 
-import 'react-resizable/css/styles.css';
 import React, { useState, useSelector } from "react";
 import MonacoEditor from "@monaco-editor/react";
 import { motion } from "framer-motion";

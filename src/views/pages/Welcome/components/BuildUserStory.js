@@ -19,11 +19,11 @@ const validationSchema = Yup.object().shape({
 })
 
 const sizes = [
-    { label: 'Live Video calling web app', value: 'Create User stories of developing Live Video calling web app with Reactjs Redux and Webrtc' },
-    { label: 'Chat application', value: 'Create User stories of developing Chat application with Reactjs and Firebase' },
-    { label: 'Modern Website for my company', value: 'Create User stories of developing Modern Website for my company with Reactjs' },
-    { label: 'My portfolio', value: 'Create User stories of developing My portfolio with Reactjs' },
-    { label: 'Landing page', value: 'Create User stories of developing Company Landing page with Reactjs' },
+    { label: 'Live Video calling web app(Front End)', value: 'Live Video calling web app with Webrtc' },
+    { label: 'Chat application(Front End)', value: 'Chat application using Socket ' },
+    { label: 'Modern Ecommerce portal (Front End)', value: 'Modern ecommerce portal' },
+    { label: 'My portfolio(Front End)', value: 'Portfolio Development' },
+    { label: 'Landing page(Front End)', value: 'Company Landing page' },
 ]
 
 const BuildUserStory = () => {
@@ -55,8 +55,11 @@ const navigate = useNavigate();
             // const newMessage = {
             //     text:'Create User stories of developing' + values.organizationName+ 'with ReactJS'
             // };
+
+            const  prePrompt = "As a developer, you are tasked with developing a web application. To ensure a successful development process, it is important to define the relevant user stories. User stories capture the needs and expectations of the application's users, serving as a basis for feature development and testing. Please create a set of user stories for the web application, keeping in mind the target users and their goals."
+
             const newMessage = {
-                question: 'Create 19 User stories of developing' + values.organizationName+ 'with ReactJS',
+                question: prePrompt + values.organizationName+ ' create at least 19 user story',
                 last_context:""
             };
 
@@ -67,9 +70,9 @@ const navigate = useNavigate();
             //     isMe: true,
             //   }
 
-           console.log("before calling" + JSON.stringify(values));
+           console.log("before calling" + JSON.stringify(newMessage.question));
         //    dispatch(getCourseDetailsApiData(newMessage));
-             dispatch(showUserStory);
+             dispatch(showUserStory(newMessage.question));
           //  dispatch(getChatGPTApiData(newMessage));
             dispatch(getUserStories(newMessage));
             loading=true;
@@ -78,11 +81,13 @@ const navigate = useNavigate();
          //  navigate(`/app/crm/mail/${category.topic}`, { replace: true })
         } else {
             if (values !== "" && values.organizationSize !== "") {
+                const  prePrompt = "As a developer, you are tasked with developing a web application. To ensure a successful development process, it is important to define the relevant user stories. User stories capture the needs and expectations of the application's users, serving as a basis for feature development and testing. Please create a set of user stories for the web application, keeping in mind the target users and their goals."
+
                 const newMessage = {
-                    question: values.organizationSize,
+                    question: prePrompt + values.organizationSize+ 'with Front end development only in ReactJS ,create at least 19 user story',
                     last_context:""
                 };
-               
+    
                     // const newMessage = {
                     //   id: generateRandomId(),
                     //   prompt: values.organizationSize,
@@ -91,7 +96,7 @@ const navigate = useNavigate();
                     // }
 
                     console.log("before dispatchghhhhhh" + JSON.stringify(values));
-                    dispatch(showUserStory);
+                    dispatch(showUserStory(newMessage.question));
                     dispatch(getUserStories(newMessage));
               //      navigate(<UserStoriesListCard/>);
              //   dispatch(getChatGPTApiData(newMessage));

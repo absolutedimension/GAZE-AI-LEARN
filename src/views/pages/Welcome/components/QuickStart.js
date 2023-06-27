@@ -41,10 +41,16 @@ import {setMessageAddress,deleteHistoryUserStory} from "../../../../store/tutor/
 //     },
 // ]
 
+//const userStoryContext = use
+
+
 const QuickStartItem = (props) => {
 
 
     const dispatch = useDispatch();
+    const userStories = useSelector((state) => state.userStorySlice.userStories)
+    const userStoryInitialContext = useSelector((state) => state.userStorySlice.userStoryInitialContext)
+    
 
   
    
@@ -66,15 +72,18 @@ const QuickStartItem = (props) => {
 
     const navigate = useNavigate()
 
+    
+
     const handleClick = (values) => {
         if (available) {
 
             console.log("values to print===="+desc);
+            
           
                 const newMessage = {
                   id: generateRandomId,
-                  prompt: desc+ "create this user story step by step so that its easy for developer to understand in implementing.",
-                  last_context:'',
+                  prompt: desc+ "create this user story in relevant format for developer with implemented tasks",
+                  last_context:userStoryInitialContext+(userStories?(userStories.join(',')):("")),
                   isMe: true,
                 };
               //  setChatMessages([...chatMessages, newMessage]);

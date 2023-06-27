@@ -50,8 +50,8 @@ const { TabNav, TabList, TabContent } = Tabs
           
           <TabNav value="tab1">Features to Develop</TabNav>
           <TabNav value="tab2">Feature Explanation</TabNav>
-          <TabNav value="tab3">Code</TabNav>
-          <TabNav value="tab4">Tutor</TabNav>
+          <TabNav value="tab3">Code/Tutor</TabNav>
+          {/* <TabNav value="tab4">Tutor</TabNav> */}
         
         </TabList>
         <div className="p-4">
@@ -80,16 +80,17 @@ const { TabNav, TabList, TabContent } = Tabs
               Use controlled inputs to handle user input and store the values in component state.</div> */}
           </TabContent>
           <TabContent value="tab3">
-           <UserStoryCode/>
+          <LiveCodeChatList/>
+           {/* <UserStoryCode/> */}
           </TabContent>
           {/* <TabContent value="tab4">
             <YamlReaderComponent />
           </TabContent> */}
-          <TabContent value="tab4">
+          {/* <TabContent value="tab4">
      
           <LiveCodeChatList/>
      
-          </TabContent>
+          </TabContent> */}
          
         </div>
       </Tabs>

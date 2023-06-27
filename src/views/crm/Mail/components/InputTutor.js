@@ -12,6 +12,7 @@ const InputTutor = ({messages,isLoading, sendMessage }) => {
   const dispatch = useDispatch();
 
   const  history = useSelector((state) => state.tutor.history);
+  const  tutorContext = useSelector((state) => state.tutor.tutorContext);
  
   const generateRandomId = () => {
     return Math.floor(Math.random() * 1000000);
@@ -23,7 +24,7 @@ const InputTutor = ({messages,isLoading, sendMessage }) => {
       const newMessage = {
         id: generateRandomId,
         prompt: message,
-        last_context:'',
+        last_context:(tutorContext?(tutorContext.join(',')):("")),
         isMe: true,
       };
     //  setChatMessages([...chatMessages, newMessage]);

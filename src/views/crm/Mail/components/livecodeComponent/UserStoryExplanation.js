@@ -102,6 +102,10 @@ const UserStoryExplanation = () => {
 
     const userStoryStringStream = useSelector((state) => state.tutor.userStoryStringStream)
 
+    const userStoryInitialContext = useSelector((state) => state.userStorySlice.userStoryInitialContext)
+
+    const userStories = useSelector((state) => state.userStorySlice.userStories)
+
 
     // const mails = useSelector((state) => state.crmMail.data.mailList)
     // const mailId = useSelector((state) => state.crmMail.data.selectedMailId)
@@ -131,12 +135,12 @@ const UserStoryExplanation = () => {
 
         const newMessage = {
             id: generateRandomId,
-            prompt: userStoryStringStream[0]+"implement this by giving code step by step for developer to understand",
-            last_context: '',
+            prompt: userStoryStringStream[0]+"provide the relevant code in previos mention tech stack",
+            last_context:userStoryInitialContext+(userStories?(userStories.join(',')):("")),
             isMe: true,
         };
         dispatch(deleteHistoryimplementCodeStringStream());
-        dispatch(setMessageAddress("code"));
+        dispatch(setMessageAddress("projectTutor"));
         dispatch(setCurrentTabUserStory("tab3"));
         dispatch(getCodeUserStory(newMessage));
 

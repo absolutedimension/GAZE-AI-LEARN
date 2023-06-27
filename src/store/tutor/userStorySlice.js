@@ -13,6 +13,7 @@ export const initialState = {
     extractedData: [],
     updatedHistory: "",
     userStories: [],
+    userStoryInitialContext:"",
     isStoryCreated: false,
     currentTab:"tab1"
 }
@@ -72,6 +73,9 @@ export const userStorySlice = createSlice({
             state.isStoryCreated = false;
         },
         showUserStory: (state, action) => {
+
+            state.userStoryInitialContext=action.payload;
+          //  state.userStoryInitialContext =[...state.userStoryInitialContext,action.payload]
             state.isStoryCreated = true;
             state.isLoading = true;
         },
@@ -242,6 +246,8 @@ export const userStorySlice = createSlice({
                 // state.messages = [...state.messages, responseMessage];
                 state.isLoading = false;
                 state.isStoryCreated = true;
+            //    state.userStoryInitialContext =[...state.userStoryInitialContext,...state.userStories];
+                
                 //   state.userStories = [...state.userStories,serialNumbersWithText]
             })
     },

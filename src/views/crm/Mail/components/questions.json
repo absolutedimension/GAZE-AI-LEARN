@@ -1,49 +1,65 @@
 [
     {
-      "topic": "Introduction to AI",
+      "topic": "React.js Basics",
       "questions": [
         {
-          "question": "What is AI",
-          "description": "Exploring the definition and goals of Artificial Intelligence"
+          "question": "Key Features",
+          "description": "Start by explaining what React.js is and its key features"
         },
         {
-          "question": "Aplications of AI",
-          "description": "Exploring the real-world applications of AI"
+          "question": "Virtual DOM",
+          "description": "Discuss the Virtual DOM and how React.js leverages it for efficient rendering."
+        },
+        {
+          "question": "Components",
+          "description": "Explain the concept of components and their role in building user interfaces."
+        },
+        {
+          "question": "JSX",
+          "description": "Introduce JSX (JavaScript XML) and its significance in React.js development."
+        },
+        {
+          "question": "State & Props",
+          "description": "Dive into React's state management and the concept of props."
         }
       ]
     },
     {
-      "topic": "Machine Learning",
+      "topic": "Practice Exercises",
       "questions": [
         {
-          "question": "Supervised learning",
-          "description": "Understanding supervised learning and its algorithms"
+          "question": "Simple Component",
+          "description": "Build a simple React component that displays a Hello, React! message on the screen."
         },
         {
-          "question": "Unsupervised learning",
-          "description": "Understanding unsupervised learning and its algorithms"
+          "question": "Manage State",
+          "description": "Create a counter component that increments or decrements a number when corresponding buttons are clicked."
         },
         {
-          "question": "Reinforcement learning",
-          "description": "Understanding reinforcement learning and its algorithms"
-        }
-      ]
-    },
-    {
-      "topic": "Natural Language Processing",
-      "questions": [
-        {
-          "question": "Text preprocessing",
-          "description": "Cleaning and preparing textual data for analysis"
+          "question": "Handling User Input",
+          "description": "Develop a form component that allows users to enter their name and displays a greeting message using their input."
         },
         {
-          "question": "Sentiment analysis",
-          "description": "Analyzing and classifying the sentiment of textual data"
+          "question": "Component Composition",
+          "description": "Build a parent component that renders multiple child components, each displaying a different piece of information."
         },
         {
-          "question": "Named Entity Recognition",
-          "description": "Identifying and classifying named entities in text"
+          "question": "Conditional Rendering",
+          "description": "Implement a component that renders different content based on a condition, such as displaying a login form or a welcome message."
+        },
+        {
+          "question": " Fetching Data from API",
+          "description": "Create a component that fetches data from an API and displays it on the screen, showcasing the use of asynchronous operations."
+        },
+        {
+          "question": "Conditional Rendering",
+          "description": "Implement a component that renders different content based on a condition, such as displaying a login form or a welcome message."
+        },
+        {
+          "question": "Routing with React Router",
+          "description": "Utilize React Router to create a simple multi-page application with navigation between different routes"
         }
       ]
     }
+  
   ]

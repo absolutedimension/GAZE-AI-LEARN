@@ -2,7 +2,7 @@ import ApiService from './ApiService'
 
 export async function apiAskUniverse (data) {
     return ApiService.fetchData({
-        url: '/send_to_websocket',
+        url: '/send_to_websocket_context',
         method: 'post',
         data
     })
@@ -10,7 +10,7 @@ export async function apiAskUniverse (data) {
 
 export async function apiDetailUserStoryFromSocket (data) {
     return ApiService.fetchData({
-        url: '/send_to_websocket',
+        url: '/send_to_websocket_context',
         method: 'post',
         data
     })
@@ -18,7 +18,7 @@ export async function apiDetailUserStoryFromSocket (data) {
 
 export async function apiGetUserStoryCodeFromSocket (data) {
     return ApiService.fetchData({
-        url: '/send_to_websocket',
+        url: '/send_to_websocket_context',
         method: 'post',
         data
     })

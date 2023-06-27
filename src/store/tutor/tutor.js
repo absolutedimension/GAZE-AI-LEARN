@@ -7,6 +7,7 @@ export const initialState = {
   messages: [],
   history: [],
   newHistory: [],
+  tutorContext:[],
   isMe: false,
   takeTest: false,
   newCardAddedIndex: 0,
@@ -16,12 +17,15 @@ export const initialState = {
 
   userStoryCharStream:[],
   userStoryStringStream:[],
+  userStoryContext:[],
 
   implementCodeStringStream:[],
   implementCodeCharStream:[],
+  implementedCodeContext:[],
 
   projectTutorStringStream:[],
-  projectTutorCharStream:[]
+  projectTutorCharStream:[],
+  projectTutorContext:[]
 
 }
 
@@ -66,6 +70,7 @@ export const tutor = createSlice({
       state.loadingMessageId = responseMessage.id;
     },
     updateHistoryLiveCode: (state, action) => {
+      state.projectTutorContext = [...state.projectTutorContext ,...state.projectTutorStringStream]
       state.projectTutorCharStream =[];
       state.projectTutorStringStream = [];
 
@@ -74,10 +79,14 @@ export const tutor = createSlice({
       state.takeTest = action.payload;
     },
     deleteHistoryUserStory: (state, action) => {
+      state.userStoryContext = [...state.userStoryContext ,...state.userStoryStringStream]
       state.userStoryStringStream = [];
       state.userStoryCharStream = [];
     },
     deleteHistoryimplementCodeStringStream: (state, action) => {
+
+      state.projectTutorContext = [...state.projectTutorContext ,...state.implementCodeStringStream];
+      state.projectTutorStringStream = [...state.projectTutorStringStream ,...state.implementCodeStringStream]
       state.implementCodeStringStream = [];
       state.implementCodeCharStream = [];
     },
@@ -218,7 +227,9 @@ export const tutor = createSlice({
     },
     updateHistory(state, action) {
       // state.history =[...state.history,...state.messages]
+      state.tutorContext = [...state.tutorContext ,...state.newHistory]
       state.history = [];
+      state.newHistory = [];
     },
 
 

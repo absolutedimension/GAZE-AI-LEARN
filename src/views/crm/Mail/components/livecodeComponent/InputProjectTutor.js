@@ -13,7 +13,12 @@ const InputProjectTutor = ({ messages, isLoading, sendMessage }) => {
     const [message, setMessage] = useState("");
     const dispatch = useDispatch();
 
-    const history = useSelector((state) => state.tutor.history);
+ //   const history = useSelector((state) => state.tutor.history);
+    const userStoryInitialContext = useSelector((state) => state.userStorySlice.userStoryInitialContext);
+
+    const projectTutorContext = useSelector((state) => state.tutor.projectTutorContext);
+    const userStories = useSelector((state) => state.userStorySlice.userStories);
+
 
     const generateRandomId = () => {
         return Math.floor(Math.random() * 1000000);
@@ -25,7 +30,7 @@ const InputProjectTutor = ({ messages, isLoading, sendMessage }) => {
             const newMessage = {
                 id: generateRandomId,
                 prompt: message,
-                last_context: '',
+                last_context:(userStoryInitialContext)+(userStories?(userStories.join(',')):(""))+(projectTutorContext?(projectTutorContext.join(',')):("")),
                 isMe: true,
             };
             //  setChatMessages([...chatMessages, newMessage]);

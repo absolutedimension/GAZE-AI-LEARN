@@ -353,7 +353,7 @@ const UserStoryCode = () => {
 
         const newMessage = {
             id: generateRandomId,
-            prompt: implementCodeStringStream[0]+"implement this by giving code step by step.",
+            prompt: implementCodeStringStream[0]+"provide the relevant code for developer to implement it step by step",
             last_context: '',
             isMe: true,
         };
@@ -381,7 +381,7 @@ const UserStoryCode = () => {
              //   mailId ? 'hidden xl:flex' : 'xs:flex'
             )}
         >
-             <Button
+             {/* <Button
                 disabled={!true}
                 variant="twoTone"
                 className="mt-4 md:mt-0"
@@ -389,7 +389,7 @@ const UserStoryCode = () => {
                 onClick={handleClick}
             >
                 {"View Code"}
-            </Button>
+            </Button> */}
             {/* <div className="relative flex flex-0 items-center justify-between min-h-[55px] border-gray-200 dark:border-gray-600">
                 <div className="flex items-center gap-1">
                     <ToggleButton

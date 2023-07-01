@@ -31,24 +31,26 @@
   }
   
   .blog-content a {
-    color: rgb(74, 221, 131);
+    color: rgb(6, 48, 22);
   }
   
   .blog-content ul {
     list-style-type: decimal;
     margin-left: 20px;
+    color: blue;
   }
   
   .blog-content ol {
     list-style-type: decimal;
     margin-left: 20px;
+    color: blueviolet;
   }
 
   .blog-content p:hover::after {
     /* Styles for the pseudo-element */
     content: attr(data-link);
     /* Additional styles for the link appearance */
-    color: rgb(115, 28, 28);
+    color: rgb(25, 3, 95);
     text-decoration: underline;
     cursor: pointer;
   }

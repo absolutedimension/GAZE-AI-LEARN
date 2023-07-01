@@ -10,7 +10,7 @@ const appsNavigationConfig = [
 
    
     {
-        key: 'LEARN WITH TUTOR',
+        key: 'LEARN WITH AI TUTOR',
         path: `${APP_PREFIX_PATH}/crm/mail`,
         title: 'LEARN WITH TUTOR',
         translateKey: 'nav.LEARN WITH TUTOR',
@@ -20,7 +20,7 @@ const appsNavigationConfig = [
         subMenu: [],
     },
     {
-        key: 'PROJECT DEVELOPMENT',
+        key: 'SOFTWARE DEV. AI TUTOR',
         path: `${APP_PREFIX_PATH}/crm/customer-details?id=8`,
         title: 'PROJECT DEVELOPMENT',
         translateKey: 'nav.PROJECT DEVELOPMENT',
@@ -29,6 +29,7 @@ const appsNavigationConfig = [
         authority: [ADMIN, USER],
         subMenu: [],
     },
+   
     // {
     //     key: 'Learn',
     //     path: `${APP_PREFIX_PATH}/crm/mail`,

@@ -18,6 +18,8 @@ import UserStoryExplanation from './UserStoryExplanation';
 import UserStoryCode from './UserStoryCode';
 
 import { initializeWebSocket, closeWebSocket, sendMessage } from './WebSocketServiceLiveCode';
+import Welcome from 'views/pages/Welcome';
+import QuickStart from 'views/pages/Welcome/components/QuickStart';
 
 
 const { TabNav, TabList, TabContent } = Tabs
@@ -65,7 +67,8 @@ const { TabNav, TabList, TabContent } = Tabs
            {/* <ListUserStories/> */}
            {/* <UserStoryListCard/> */}
            {/* <BuildUserStory/> */}
-           <UserStoriesListCard />
+           {/* <UserStoriesListCard /> */}
+           <Welcome></Welcome>
          
           </TabContent>
           <TabContent value="tab2">
@@ -80,7 +83,12 @@ const { TabNav, TabList, TabContent } = Tabs
               Use controlled inputs to handle user input and store the values in component state.</div> */}
           </TabContent>
           <TabContent value="tab3">
+          <div className="flex flex-auto w-full">
+          {/* <QuickStart/> */}
           <LiveCodeChatList/>
+       
+          </div>
+        
            {/* <UserStoryCode/> */}
           </TabContent>
           {/* <TabContent value="tab4">

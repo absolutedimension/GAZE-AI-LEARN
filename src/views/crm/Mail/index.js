@@ -17,7 +17,7 @@ const Mail = () => {
         >
              {/*<MailSidebar />  */}
               <OnlineEditorFrame />
-             <TrainingTopics/>
+             {/* <TrainingTopics/> */}
            
             {/* <QuestionList/> */}
             {/* <LiveCodeContainer/> */}

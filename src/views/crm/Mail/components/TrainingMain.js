@@ -3,14 +3,14 @@ import { Container } from 'components/shared'
 //import LiveCodeChatList from 'views/crm/Mail/components/livecodeComponent/LiveCodeChatList'
 
 
-const Step1 = lazy(() => import('./components/Step1'))
-const Step2 = lazy(() => import('./components/Step4'))
-const Step3 = lazy(() => import('./components/Step4'))
-const Step4 = lazy(() => import('./components/Step4'))
-const QuickStart = lazy(() => import('./components/QuickStart'))
-const QuickSLiveCodeChatListtart = lazy(() => import('views/crm/Mail/components/livecodeComponent/LiveCodeChatList'))
+const Step1 = lazy(() => import('../components/trainingComponent/components/Step1'))
+const Step2 = lazy(() => import('../components/trainingComponent/components/Step4'))
+const Step3 = lazy(() => import('../components/trainingComponent/components/Step4'))
+const Step4 = lazy(() => import('../components/trainingComponent/components/Step4'))
+//const QuickStart = lazy(() => import('./trainingComponent/QuickStart'))
+const TutorChatList = lazy(() => import('views/crm/Mail/components/TutorChatList'))
 
-const Welcome = () => {
+const TrainingMain = () => {
     const [surveyStep, setSurveyStep] = useState(0)
     const [showTutor, setShowTutor] = useState(false)
 
@@ -42,7 +42,7 @@ const Welcome = () => {
                     {surveyStep === 3 && (
                         <Step4 onNext={handleNext} onBack={handleBack} />
                     )}
-                    {surveyStep === 4 && <QuickSLiveCodeChatListtart/>}
+                    {surveyStep === 4 && <TutorChatList/>}
                     {/* {surveyStep === 4 && setShowTutor(true)} */}
                     {/* {showTutor?(<LiveCodeChatList/>):(null)} */}
                 </Suspense>
@@ -51,4 +51,4 @@ const Welcome = () => {
     )
 }
 
-export default Welcome
+export default TrainingMain

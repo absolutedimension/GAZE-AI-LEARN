@@ -117,6 +117,8 @@ const LiveCodeContainer = () => {
   const [leftPanelWidth, setLeftPanelWidth] = useState(300);
   const [isDragging, setIsDragging] = useState(false);
 
+  const showEditor = useSelector((state) => state.crmMail.state.showEditor)
+
   const handleResize = (e, { size }) => {
     setWidth(size.width);
   };
@@ -154,13 +156,17 @@ const LiveCodeContainer = () => {
           style="height: 100%; width: 100%; border: 0;">
         </iframe> */}
 
-        <iframe
-            src="https://glitch.com/embed/#!/embed/reactwebapp?path=src/app.jsx&previewSize=0&attributionHidden=true"
-            title="ReactWebApp"
-            allow="geolocation; microphone; camera; midi; encrypted-media; xr-spatial-tracking; fullscreen"
-            allowFullScreen
-            style={{ height: '100%', width: '100%', border: 0 }}
-          ></iframe>
+        <div style={{ height: '100%', width: '100%' }}>
+          {showEditor ? (
+            <iframe
+              src="https://glitch.com/embed/#!/embed/reactwebapp?path=src/app.jsx&previewSize=0&attributionHidden=true"
+              title="verdant-valuable-latency on Glitch"
+              allow="geolocation; microphone; camera; midi; encrypted-media; xr-spatial-tracking; fullscreen"
+              allowFullScreen
+              style={{ height: '100%', width: '100%' }}
+            ></iframe>
+          ) : (null)}
+        </div>
         {/* <Pill />  */}
         <UserStoryCardList />
       </div>

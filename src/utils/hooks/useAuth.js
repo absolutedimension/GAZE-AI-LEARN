@@ -21,7 +21,7 @@ function useAuth() {
             const resp = await apiSignIn(values)
             if (resp.data) {
                 const token  = resp.data
-                console.log("token=="+token);
+                console.log("token=="+JSON.stringify(resp));
                 dispatch(onSignInSuccess(token))
                 if (resp.data.user) {
                     dispatch(
@@ -94,7 +94,9 @@ function useAuth() {
     }
 
     const signOut = async () => {
-        await apiSignOut()
+
+        console.log("Signout===");
+     //   await apiSignOut()
         handleSignOut()
     }
 

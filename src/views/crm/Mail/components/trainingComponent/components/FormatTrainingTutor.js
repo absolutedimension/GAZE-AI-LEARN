@@ -18,9 +18,9 @@ import {CodeSnippet} from './CodeSnippet.js';
 
 import { SyntaxHighlighter } from 'components/shared'
 
-import { sendPromptChatGPT ,getChatGPTApiData,sendMessageToChatBox,getDetailUserStory,setCurrentTabUserStory} from "../../../../store/tutor/userStorySlice";
+import { sendPromptChatGPT ,getChatGPTApiData,sendMessageToChatBox,getDetailUserStory,setCurrentTabUserStory} from "../../../../../../store/tutor/userStorySlice.js";
 
-import {setMessageAddress,deleteHistoryimplementCodeStringStream} from "../../../../store/tutor/tutor";
+import {setMessageAddress,updateHistory} from "../../../../../../store/tutor/tutor.js";
 
 
 
@@ -103,8 +103,8 @@ const QuickStartItem = (props) => {
          //      dispatch(sendMessageToChatBox(message));
               //  dispatch(deleteHistoryUserStory());
                // deleteHistoryimplementCodeStringStream
-               dispatch(deleteHistoryimplementCodeStringStream());
-                dispatch(setMessageAddress("projectTutor"));
+               dispatch(updateHistory());
+                dispatch(setMessageAddress("tutor"));
              //   dispatch(setCurrentTabUserStory("tab2"));
                dispatch(getDetailUserStory(newMessage));
              //  navigate(path);
@@ -185,10 +185,10 @@ const renderCodeBlock = ({ language, value }) => {
   
 
 
-const QuickStart = ({userStories,loading,setCurrentTab}) => {
+const FormatTrainingTutor = ({userStories,loading,setCurrentTab}) => {
     const { textTheme, borderTheme } = useThemeClass();
 
-    const taggedQuestion = useSelector((state) => state.tutor.taggedQuestion)
+    const taggedQuestionTutor = useSelector((state) => state.tutor.taggedQuestionTutor)
    // const taggedQuestion = useSelector((state) => state.tutor.taggedQuestion)
 
    const codePattern = /```([\s\S]*?)```/g;
@@ -281,8 +281,8 @@ const QuickStart = ({userStories,loading,setCurrentTab}) => {
 // }
   
 
-    const renderedItems = taggedQuestion[0]
-    ? taggedQuestion[taggedQuestion.length - 1].map((ObjectStory) => {
+    const renderedItems = taggedQuestionTutor[0]
+    ? taggedQuestionTutor[taggedQuestionTutor.length - 1].map((ObjectStory) => {
         if (ObjectStory.serialNumber !== '') {
           return (
             <QuickStartItem
@@ -420,4 +420,4 @@ const QuickStart = ({userStories,loading,setCurrentTab}) => {
     )
 }
 
-export default QuickStart
+export default FormatTrainingTutor

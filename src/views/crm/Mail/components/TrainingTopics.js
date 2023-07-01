@@ -22,6 +22,8 @@ import { getChatGPTApiData, sendMessageToChatBox, takeTest,updateHistory ,setMes
 
 import questionData from './questions.json';
 
+import { Dropdown } from 'components/ui'
+
 const { MenuItem, MenuGroup } = Menu
 
 
@@ -112,6 +114,21 @@ const MailSideBarContent = () => {
     //     }
     // }
 
+    // const dropdownItems = [
+    //     { key: 'react', name: 'ReactJS' },
+    //     { key: 'javaScript', name: 'JavaScript' },
+    //     { key: 'Python', name: 'Python' },
+    //     { key: 'Nodejs', name: 'Nodejs' },
+    // ]
+
+    // const onDropdownItemClick = (eventKey, e) => {
+    //     console.log('Dropdown Item Clicked', eventKey, e)
+    // }
+
+    // const onDropdownClick = (e) => {
+    //     console.log('Dropdown Clicked', e)
+    // }
+
     return (
         <ScrollBar direction={direction}>
             <div className="flex flex-col justify-between h-full">
@@ -119,6 +136,19 @@ const MailSideBarContent = () => {
                     <div className="my-8 mx-6">
                         <h3>ReactJS</h3>
                     </div>
+                     {/* <div>
+            <Dropdown title="Learning Course" onClick={onDropdownClick}>
+                {dropdownItems.map((item) => (
+                    <Dropdown.Item
+                        onSelect={onDropdownItemClick}
+                        eventKey={item.key}
+                        key={item.key}
+                    >
+                        {item.name}
+                    </Dropdown.Item>
+                ))}
+            </Dropdown>
+        </div> */}
                     {/* <Menu variant="transparent" className="mx-2 mb-10">
                         {groupList.map((menu) => (
                             <MenuItem

@@ -8,6 +8,7 @@ const stateSlice = createSlice({
         selectedCategory: {},
         reply: false,
         newMessageDialog: false,
+        showEditor:false
     },
     reducers: {
         updateReply: (state, action) => {
@@ -25,6 +26,9 @@ const stateSlice = createSlice({
         updateSelectedCategory: (state, action) => {
             state.selectedCategory = action.payload
         },
+        showEditorToggle: (state, action) => {
+            state.showEditor = action.payload
+        },
     },
 })
 
@@ -34,6 +38,7 @@ export const {
     toggleMobileSidebar,
     toggleNewMessageDialog,
     updateSelectedCategory,
+    showEditorToggle,
 } = stateSlice.actions
 
 export default stateSlice.reducer

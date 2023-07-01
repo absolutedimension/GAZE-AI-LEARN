@@ -1,6 +1,8 @@
 import React from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 
+import {useState} from 'react';
+
 import { FormItem, FormContainer, Segment, Button } from 'components/ui'
 import { Field, Form, Formik } from 'formik'
 import { SegmentItemOption } from 'components/shared'
@@ -18,22 +20,25 @@ import { setMessageAddress,projectTutorContext } from 'store/tutor/tutor'
 
 import { setCurrentTabUserStory } from 'store/tutor/userStorySlice';
 
+import { sendPromptChatGPT ,getChatGPTApiData,sendMessageToChatBox,updateHistory} from "store/tutor/tutor";
+
+
 const roles = [
     {
-        value: 'I am begineer in React and i know basics of Javascript,i want to learn making application in front End using Reactjs as Developer,generate me correct prompt for this',
+        value: 'I am begineer in React and i know basics of Javascript,i want to learn making application in front End',
       //  label: 'Start project from scratch',
-        label: 'I am begineer in React and i know basics of Javascript,i want to learn making application in front End using Reactjs as Developer',
+        label: 'I am begineer in React and i know basics of Javascript,i want to learn making application in front End.r',
        
      //   icon: <HiOutlineBookOpen />,
     },
     {
-        value: 'I have simple compoenets in react and made pratice exercises,i want to learn how complex react application works,like redux setup and execution,give me correct promt to learn this',
-        label: 'I have simple compoenets in react and made pratice exercises,i want to learn how complex react application works,like redux setup and execution',
+        value: 'I have made simple compoenets in react and done few pratice exercises,i want to learn how complex react application works and what are the concepts i would be knowing.',
+        label: 'I have made simple compoenets in react and done few pratice exercises,i want to learn how complex react application works and what are the concepts i would be knowing.',
       //  icon: <HiOutlineClock />,
     },
     {
-        value: 'I am beginner in coding,have done html css programming a bit,i want to learn Reactjs,how do i start with,help me in generating right prompt to what should i follow in oreder to learn making simple recat front end',
-        label: 'I am beginner in coding,have done html css programming a bit,i want to learn Reactjs,how do i start with',
+        value: 'I am beginner in coding,have done html css programming a bit,i want to learn Reactjs,how do i start with,help me in learning Reactjs.',
+        label: 'I am beginner in coding,have done html css programming a bit,i want to learn Reactjs,how do i start with,help me in learning Reactjs',
      //   icon: <HiOutlineAdjustments />,
     },
     { value: '3', label: 'Others', icon: <HiOutlineSparkles /> },
@@ -42,6 +47,20 @@ const roles = [
 const Step4 = ({ onNext, onBack }) => {
 
     const dispatch = useDispatch();
+
+    const  tutorContext = useSelector((state) => state.tutor.tutorContext);
+    const  token = useSelector((state) => state.auth.session.token);
+
+    const [message, setMessage] = useState("");
+
+
+  const  history = useSelector((state) => state.tutor.history);
+
+  const generateRandomId = () => {
+    return Math.floor(Math.random() * 1000000);
+};
+
+    
    
 
     const projectTutorContext = useSelector(
@@ -51,17 +70,39 @@ const Step4 = ({ onNext, onBack }) => {
     const onSetFieldValue = (form, field, val) => {
 
 
-        const newMessage = {
-            id: 1,
-            prompt: val[0],
-          //  last_context:"",
-            last_context:val[0]+(projectTutorContext[0]?(projectTutorContext[0].join(',')):("")),
-            isMe: true,
-        };
-      //  dispatch(deleteHistoryimplementCodeStringStream());
-        dispatch(setMessageAddress("projectTutor"));
-        dispatch(setCurrentTabUserStory("tab3"));
-        dispatch(getCodeUserStory(newMessage));
+    //     const newMessage = {
+    //         id: 1,
+    //         prompt: val[0],
+    //       //  last_context:"",
+    //         last_context:val[0]+(projectTutorContext[0]?(projectTutorContext[0].join(',')):("")),
+    //         isMe: true,
+    //     };
+    //   //  dispatch(deleteHistoryimplementCodeStringStream());
+    //     dispatch(setMessageAddress("tutor"));
+    //   //  dispatch(setCurrentTabUserStory("tab3"));
+    //     dispatch(getCodeUserStory(newMessage));
+
+        if (val[0] !== "") {
+            const newMessage = {
+              id: generateRandomId,
+              prompt: val[0],
+              client_id:token,
+              last_context:(tutorContext?(tutorContext.join(',')):("")),
+              isMe: true,
+            };
+          //  setChatMessages([...chatMessages, newMessage]);
+           // fetchChatRequest();
+           console.log("before calling"+message);
+         //  sendPromptChatGPT(message);
+            dispatch(setMessageAddress("tutor"));
+        //   dispatch(sendMessageToChatBox(message));
+           dispatch(getChatGPTApiData(newMessage));
+      
+       //    const updatedHistory = [...history, message];
+       //   dispatch(updateHistory());
+          // console.log("after calling"+message);
+         //   setMessage("");
+          }
 
         form.setFieldValue(field.name, val[0])
         onNext?.()

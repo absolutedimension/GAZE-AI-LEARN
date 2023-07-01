@@ -15,6 +15,7 @@ import {
     toggleSidebar,
     toggleMobileSidebar,
     updateReply,
+    showEditorToggle
 } from '../store/stateSlice'
 import useResponsive from 'utils/hooks/useResponsive'
 import { useNavigate, useLocation } from 'react-router-dom'
@@ -28,20 +29,20 @@ import { StickyFooter } from 'components/shared'
 import InputTutor from './InputTutor'
 import { Buffer, constants } from 'buffer'
 
-import { setChatFromStream } from "../../../../store/tutor/tutor"
+import { formatScreenTutor, setChatFromStream } from "../../../../store/tutor/tutor"
 import StreamChatMessage from './StreamChatMessage'
 
 import ReactMarkdown from 'react-markdown';
 
 import './Blog.css'
 
-import { sendPromptChatGPT ,getChatGPTApiData,sendMessageToChatBox,updateHistory,newCardAdded} from "store/tutor/tutor";
+import { sendPromptChatGPT ,getChatGPTApiData,sendMessageToChatBox,updateHistory,newCardAdded,formatScreen} from "store/tutor/tutor";
 
 
 
 
 
-import { initializeWebSocket, closeWebSocket, sendMessage } from './Websocketservice';
+import { initializeWebSocket, closeWebSocket, sendMessage } from '../components/livecodeComponent/WebSocketServiceLiveCode';
 
 
 
@@ -54,7 +55,9 @@ import CodeCopyBtn from './codeCopyBtn';
 import useThemeClass from 'utils/hooks/useThemeClass'
 
 import { HiOutlineLockClosed } from 'react-icons/hi'
-import StreamCard from './StreamCard'
+import StreamCard from './StreamCard';
+
+import FormatTrainingTutor from './trainingComponent/components/FormatTrainingTutor'
 
    
 
@@ -100,6 +103,40 @@ const ToggleButton = ({ sideBarExpand, mobileSidebarExpand }) => {
 
 
 
+
+const ToggleEditor = ({ showEditor }) => {
+    const dispatch = useDispatch()
+
+   // const { smaller } = useResponsive()
+  
+   const  showEditorMethod = () => {
+    dispatch(showEditorToggle(!showEditor))
+    }
+
+    // const onMobileSideBar = () => {
+    //     dispatch(toggleMobileSidebar(!mobileSidebarExpand))
+    // }
+
+    return (
+        <Button
+            icon={
+                showEditor ? (
+                    <HiMenu />
+                ) : (
+                    <HiMenuAlt2 />
+                )
+            }
+            onClick={showEditorMethod}
+            size="sm"
+            variant="plain"
+            shape="circle"
+        />
+    )
+}
+
+
+
+
 const TutorChatList = ({newCardAddedIndex,history,newHistory,messages}) => {
     const dispatch = useDispatch();
     const scrollBarRef = useRef(null);
@@ -135,6 +172,10 @@ const TutorChatList = ({newCardAddedIndex,history,newHistory,messages}) => {
     const sideBarExpand = useSelector(
         (state) => state.crmMail.state.sideBarExpand
     )
+
+    const showEditor = useSelector(
+        (state) => state.crmMail.state.showEditor
+    )
     const mobileSidebarExpand = useSelector(
         (state) => state.crmMail.state.mobileSidebarExpand
     )
@@ -146,6 +187,8 @@ const TutorChatList = ({newCardAddedIndex,history,newHistory,messages}) => {
 
 
     const updatedHistory = useSelector((state) => state.tutor.updatedHistory)
+
+    const token = useSelector((state) => state.auth.session.token)
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -159,6 +202,7 @@ const TutorChatList = ({newCardAddedIndex,history,newHistory,messages}) => {
     const [cards, setCards] = useState([]);
 
 
+    
 
 
     const pushCharacters = (targetArray, characters) => {
@@ -166,7 +210,10 @@ const TutorChatList = ({newCardAddedIndex,history,newHistory,messages}) => {
             setTargetArray(prevArray => [...prevArray, ...characters]);
         }
     };
-
+    
+    const generateRandomIdTutor = () => {
+        return Math.floor(Math.random() * 1000000);
+    };
     const generateRandomId = () => {
         return Math.floor(Math.random() * 1000000);
     };
@@ -190,7 +237,28 @@ const TutorChatList = ({newCardAddedIndex,history,newHistory,messages}) => {
     }
 
 
-   
+    const getObject = (state) => state.tutor.newHistory[0];
+
+  
+    // Selector function to monitor changes in the object
+        const isObjectUpdated = (state) => {
+        const currentObject = getObject(state);
+        const previousObject = state.tutor.previousNewHistory[0]; // Assuming you store the previous object in your state
+
+                 // Check if both objects exist
+            if (currentObject && previousObject) {
+                // Convert the objects to JSON strings for comparison
+                const currentObjectString = JSON.stringify(currentObject);
+                const previousObjectString = JSON.stringify(previousObject);
+                
+                // Compare the JSON strings
+                if (currentObjectString == previousObjectString) {
+                // The objects are different
+                return true;
+                }
+            }
+       
+    };
 
     useEffect(() => {
         initializeWebSocket(); // Establish WebSocket connection on component mount
@@ -200,217 +268,15 @@ const TutorChatList = ({newCardAddedIndex,history,newHistory,messages}) => {
         };
       }, []);
 
-    // useEffect(() => {
-    //     // Create a WebSocket connection
-    //     const socket = new WebSocket('ws://34.171.99.103:8082');
-    //     //       console.log('WebSocket object:', socket);
-    //     //console.log('WebSocket ready state:', socket.readyState);
 
-    //     // Handle incoming messages from the WebSocket server
-    //     // socket.onmessage = (event) => {
+      useEffect(() => {
 
-    //     //     const reader = new FileReader();
-    //     //     reader.onload = () => {
-    //     //       const newData = JSON.parse(reader.result);
-    //     //       setDataList((prevDataList) => [...prevDataList, newData]);
-    //     //     };
-    //     //     reader.readAsText(event.data);
-    //     //     console.log('Received data:', event.data);
-    //     //   };
+        dispatch(formatScreenTutor());// Establish WebSocket connection on component mount
+   
+         
+       }, [isObjectUpdated]);
+   
 
-
-    //     socket.onmessage = (event) => {
-    //         //    const byteArray = new Uint8Array(event.data);
-    //         //   const decoder = new TextDecoder('utf-8');
-    //         //  const decodedMessage = decoder.decode(byteArray);
-    //         //   console.log('Received data:', decodedMessage);
-
-    //         //   const text1 = (JSON.stringify(event.data).data).map(num => String.fromCharCode(num)).join('');
-    //         //console.log(text1);
-
-
-
-
-
-    //         const bufferData = Buffer.from(JSON.parse(event.data).data); // Example buffer data
-    //         //   var sentence = [];
-    //         const readableData = bufferData.toString();
-    //         console.log(JSON.parse(readableData).content);
-    //         //  sentence.push(JSON.parse(readableData).content)// Output: "H
-    //         //   characters=JSON.parse(readableData).content;
-
-    //         // dispatch(setChatFromStream({
-    //         //     id: generateRandomId(),
-    //         //     message: (JSON.parse(readableData).content) ? (JSON.parse(readableData).content) : (""),
-    //         //     isMe: false
-    //         // })
-
-
-    //            setMessages(prevMessages => [...prevMessages,JSON.parse(readableData).content])
-
-    //         //    const newMessage=[{
-    //         //        id:1,
-    //         //        message:JSON.parse(readableData).content,
-    //         //        isMe:false
-    //         //    }];
-
-
-
-
-    //         //   setMessages(messages => [...prevMessages, JSON.parse(readableData).content]);
-          
-
-
-    //         }
-    //     //   pushCharacters(targetArray,characters);
-    //     //  pushCharacters(targetArray,characters);
-    //     //    console.log('Received data111111111456765763257573575735573575734551s:'+targetArray );
-    //     // const jsonData = JSON.parse(event.data);
-    //     //  text = String.fromCharCode(...jsonData.data);
-    //     // console.log(JSON.stringify(text));  // Output: "{  "content": " today"}
-    //     //             let jsonData =[];
-    //     //              jsonData = JSON.parse(event.data);
-
-    //     //              console.log("jsonData type:", typeof jsonData);
-    //     // console.log("jsonData:", jsonData);
-
-    //     // const sentences = [];
-
-    //     // jsonData.forEach(item => {
-    //     //   if (item.content) {
-    //     //     sentences.push(item.content);
-    //     //   }
-    //     // });
-
-    //     // const fullSentence = sentences.join(" ");
-    //     // console.log("Full sentence:", fullSentence);
-
-
-    //     //             const jsonData = JSON.parse(event.data);
-    //     // const contentArray = jsonData.data.map(item => item.content);
-    //     // const fullContent = contentArray.join("");
-    //     // console.log("Full content:", fullContent);
-
-    //     // const fullSentence = joinContentSentences(text);
-    //     // console.log("Full sentence:", fullSentence);
-
-
-
-
-
-    //     //             const jsonObject = JSON.parse(text);
-    //     // const content = jsonObject.content;
-    //     // console.log(content);
-    //     //  const uint8Array = new Uint8Array(event.data);
-    //     //  const decoder = new TextDecoder('utf-8');
-    //     //  const text = decoder.decode(uint8Array);
-    //     //     console.log('Received data1111111111s:', JSON.stringify(text));
-    //     //  console.log('Decoded message:', decodedMessage);
-
-    //     //   const newMessage = decodedMessage;
-    //     //    setMessages((prevMessages) => [...prevMessages, newMessage]);
-
-    //     // socket.onmessage = (event) => {
-    //     //     const blob = new Blob([event.data], { type: 'application/octet-stream' });
-    //     //     const reader = new FileReader();
-    //     //     reader.onload = () => {
-    //     //       const dataURL = reader.result;
-    //     //       setBlobURL(dataURL);
-    //     //     };
-    //     //     reader.readAsDataURL(blob);
-    //     //   };
-
-    //     // Clean up the WebSocket connection when the component unmounts
-    //     return () => {
-    //         socket.close();
-    //     };
-    // }, []);
-
-
-
-    // useEffect(() => {
-    //     const path = location.pathname.substring(
-    //         location.pathname.lastIndexOf('/') + 1
-    //     )
-    //     const category = { category: path }
-
-    //     // if (path === 'mail') {
-    //     //     category.category = 'inbox'
-    //     // }
-
-    //    // fetchData(category)
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [location.pathname])
-
-    const parseHtml = (content) => {
-        if (!content) {
-            return ''
-        }
-        const text = content.replace(htmlReg, '')
-        return text.length > 60 ? text.substring(0, 57) + '...' : text
-    }
-
-    const onMailClick = (e, id) => {
-        e.stopPropagation()
-        dispatch(updateMailId(id))
-        dispatch(updateReply(false))
-        navigate(`${location.pathname}?mail=${id}`, { replace: true })
-    }
-
-    //  console.log('Messages:', blobURL);
-
-    // return (
-    //     <div
-    //         className={classNames(
-    //             'min-w-[430px] ease-in-out duration-300 relative flex flex-auto flex-col ltr:border-r rtl:border-l border-gray-200 dark:border-gray-600',
-    //             sideBarExpand && 'ltr:xl:ml-[0px] rtl:xl:mr-[0px]',
-    //             mailId ? 'hidden xl:flex' : 'xs:flex'
-    //         )}
-    //     >
-    //    {messages}
-    //         <div className="flex-grow flex flex-col justify-end">
-    //             <InputTutor />
-    //             {/* <div>
-    //   {dataList.map((data, index) => (
-    //     <div key={index}>{data}</div>
-    //   ))}
-    // </div> */}
-    //             {/* <InputGroup className="mb-4">
-    //             <Input
-    //                 prefix={
-    //                     <HiOutlineMicrophone className="text-xl text-indigo-600 cursor-pointer" />
-    //                 }
-    //             />
-    //             <Button>Send</Button>
-    //         </InputGroup> */}
-    //         </div>
-    //     </div>
-    // );
-
-    function parseDataToArray(data) {
-        // Regular expression pattern to match array elements and their children
-        var regex = /(\w+)\s*\((.*?)\)/g;
-      
-        var result = [];
-        var match;
-      
-        // Loop through all matches found in the data string
-        while ((match = regex.exec(data)) !== null) {
-          var element = {
-            name: match[1],
-            children: parseDataToArray(match[2]) // Recursive call to parse children
-          };
-      
-          result.push(element);
-        }
-      
-        return result;
-      }
-      
-      // Example usage
-    //   var data = "array1(child1, child2), array2(child3), array3";
-    //   var parsedArray = parseDataToArray(data);
-    //   console.log(parsedArray);
       
     const handleClick = () => {
      
@@ -464,210 +330,7 @@ const TutorChatList = ({newCardAddedIndex,history,newHistory,messages}) => {
         );
       };
       
-    //   const renderers = {
-    //     button: ButtonRenderer,
-    //   };
-
-    //   const renderers = {
-    //     code: ({ language, value }) => (
-    //       <SyntaxHighlighter
-    //         style={a11yDark}
-    //         language={language}
-    //         PreTag={Pre}
-    //         children={value}
-    //       />
-    //     ),
-    //   };
-      
-
-    //   const markdownContent = history ? (
-    //     <ReactMarkdown
-    //         className='post-markdown'
-    //      //   linkTarget='_blank'
-    //          rehypePlugins={[rehypeRaw]}
-    //         // remarkPlugins={[remarkGfm]}
-    //         components={{
-    //             pre: Pre,
-    //             code: renderers.code,
-    //           }}
-    //         // components={{
-    //         //     pre: Pre,
-    //         //     code({ node, inline, className = "blog-code", children, ...props }) {
-    //         //         const match = /language-(\w+)/.exec(className || '')
-    //         //         return !inline && match ? (
-    //         //             <SyntaxHighlighter
-    //         //                 style={a11yDark}
-    //         //                 language={match[1]}
-    //         //                 PreTag="div"
-    //         //                 {...props}
-    //         //             >
-    //         //                 {String(children).replace(/\n$/, '')}
-    //         //             </SyntaxHighlighter>
-    //         //         ) : (
-    //         //             <code className={className} {...props}>
-    //         //                 {children}
-    //         //             </code>
-    //         //         )
-    //         //     }
-    //         // }}
-    //     >
-    //          {history.join('').replace(pattern, '[$1](#)')}
-    //     </ReactMarkdown>
-    //   ) : null;
   
-
-    //   const markdownContent = history ? (
-    //     <ReactMarkdown renderers={{ code: renderCodeBlock }}>
-    //          {history.join('').replace(pattern, ' [$1](#)')}
-    //     </ReactMarkdown>
-    //   ) : null;
-
-
-    // useEffect(() => {
-    //     if (index !== 0) {
-    //       setCards((prevCards) => [
-    //         ...prevCards,
-    //         <Card key={index} className="mb-4">
-    //           {/* JSX code for rendering the card */}
-    //         </Card>
-    //       ]);
-    //     }
-    //   }, [index, setCards]); // Add setCards to the dependency array
-
-    // const indexRef = useRef(0); 
-    // const handlePatternRecognized = (index) => {
-    //     // Dispatch the action with the index value
-    //     const currentIndex = indexRef.current;
-    //     dispatch(newCardAdded(index));
-    //   };
-      
-    //   const markdownContent = history ? (
-    //     <ReactMarkdown
-    //       renderers={{ code: renderCodeBlock }}
-    //       transformLinkUri={(uri, children, title) => {
-    //         // No console.log here to prevent infinite loop
-    //      //   setIndex((prevIndex) => prevIndex + 1); // Update index when link is added
-    //       dispatch(newCardAdded(index+1));
-    //     //   if (pattern.test(uri)) {
-    //     //     // Call your function when the pattern is recognized and pass the index value
-    //     //     console.log("patteren rceodjhkfjsh");
-    //     //     handlePatternRecognized(index);
-    //     //   }
-
-    //      // Increment the index value
-    //         return '#';
-    //       }}
-    //     >
-    //       {history.join('').replace(pattern, ' [$1](#)')}
-    //     </ReactMarkdown>
-    //   ) : null;
-      
-
-    // const markdownContent = history ? (
-    //     <ReactMarkdown escapeHtml={true} className="blog-content">
-    //       {/* {history.replace(pattern, ' [$1]("") :')} */}
-    //       {history.join('').replace(pattern, ' [$1](javascript:void(0);) onClick={handleClick}')}
-    //       {/* {parseDataToArray({history})} */}
-    //     </ReactMarkdown>
-    //   ) : null;
-
-
-//     useEffect(() => {
-
-//         if(newHistory[0]){
-            
-
-
-// //             const extractedData = {};
-
-// // let match;
-// // while ((match = pattern.exec(newHistory[0])) !== null) {
-// //   const key = match[1];
-// //   extractedData[key] = '';
-// // }
-
-// //             const values = characterStream.split(pattern);
-// //             Object.keys(extractedData).forEach((key, index) => {
-// //                 extractedData[key] = values[index + 1].trim();
-// //             });
-
-//             const patternNumber = /(\d+\.\s[\w\s]+):/g;
-//         console.log("Matchsed cpiunt== Before");
-//         const matchedCount = (newHistory[0].match(patternNumber) || []).length;
-//         console.log("Matchsed cpiunt=="+matchedCount);
-        
-
-//         if((newHistory[0].match(patternNumber) || [])){
-
-//             dispatch(newCardAdded(matchedCount));
-//          //   const rowValue = history.join('');
-         
-             
-
-//          }
-//         }
-        
-        
-
-       
-//       }, [newHistory[0]]);
-
-
-
-//       function substringCharacterStream(characterStream, maxLength) {
-//         let substring = "";
-//         let currentLength = 0;
-      
-//         for (let i = 0; i < characterStream.length; i++) {
-//           const char = characterStream[i];
-//           substring += char;
-//           currentLength++;
-      
-//           if (currentLength >= maxLength) {
-//             break;
-//           }
-//         }
-      
-//         return substring;
-//       }
-
-//       useEffect(() => {
-
-//         if(newCardAddedIndex!==0){
-
-
-
-//             const extractedData = [];
-
-//             let match
-//             while ((match = pattern.exec(newHistory[0])) !== null) {
-//                 const value = match[1];
-//                 extractedData.push(value);
-//             }
-
-
-//             console.log("Extracted data==" + extractedData);
-
-//             if (extractedData != null) {
-//                 setCards((prevCards) => [
-//                     ...prevCards,
-
-
-//                     <StreamCard index={newCardAddedIndex} variable={substringCharacterStream(newHistory[0],newHistory[0].le)} />
-
-
-//                 ]);
-//             }
-
-
-//         }
-
-        
-        
-        
-
-       
-//       }, [newCardAddedIndex]);
 
 
 const markdownContent = newHistory[0] ? (
@@ -681,7 +344,7 @@ const markdownContent = newHistory[0] ? (
     return (
         <div
             className={classNames(
-                'min-w-[650px] ease-in-out duration-300 relative flex flex-auto flex-col ltr:border-r rtl:border-l',
+                'min-w-[750px]  ease-in-out duration-300 relative flex flex-auto flex-col ltr:border-r rtl:border-l',
                 sideBarExpand && 'ltr:xl:ml-[0px] rtl:xl:mr-[0px]',
              //   mailId ? 'hidden xl:flex' : 'xs:flex'
             )}
@@ -693,23 +356,33 @@ const markdownContent = newHistory[0] ? (
                         mobileSidebarExpand={mobileSidebarExpand}
                     />
                     <h6>Options</h6>
+                    <div className="flex items-center gap-1">
+                    <ToggleEditor
+                        showEditor={showEditor}
+                      //  mobileSidebarExpand={mobileSidebarExpand}
+                    />
+                    <h6>Editor</h6>
                 </div>
+                </div>
+               
             </div>
-            <ScrollBar   ref={scrollBarRef} autoScroll={true}>
+            <ScrollBar>
                 <Loading
                     type={messages.length > 0 ? 'cover' : 'default'}
                     spinnerClass={messages.length > 0 ? 'hidden' : ''}
                     loading={loading}
                 >
    
-   <div className="mt-8 max-w-[600px] lg:min-w-[650px] overflow-y-auto max-h-106">
+   <div className="mt-8  overflow-y-auto max-h-106">
       {  messages.map((chatMessage) => (
-        <ChatMessage key={chatMessage.length} chatMessage={chatMessage} isLoading={isLoading} loadingMessageId={loadingMessageId} />
+        <ChatMessage key={messages.length} chatMessage={chatMessage} isLoading={isLoading} loadingMessageId={loadingMessageId} />
 ))
 
       }
 
-     {
+
+          <FormatTrainingTutor/>
+     {/* {
         markdownContent ? (
 
             markdownContent
@@ -717,7 +390,7 @@ const markdownContent = newHistory[0] ? (
             // <div dangerouslySetInnerHTML={{ __html: updatedHistory }}></div>
      
            
-    ):("")}
+    ):("")} */}
      </div>
      {/* {history} */}
 

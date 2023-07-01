@@ -1,6 +1,6 @@
 // websocketService.js
 
-import { messageRecieved, webSocketConnected, webSocketDisconneted, webSocketError ,extractedData} from '../../../../../store/tutor/tutor';
+import { messageRecieved, webSocketConnected, webSocketDisconneted, webSocketError ,formatScreen,extractedData} from '../../../../../store/tutor/tutor';
 import { useDispatch } from 'react-redux';
 import { Buffer, constants } from 'buffer'
 //import {  getUserStories} from "../../../../../store/tutor/userStorySlice";
@@ -38,10 +38,16 @@ export const initializeWebSocket = (componentName) => {
     //         //   var sentence = [];
             const readableData = bufferData.toString();
             console.log(JSON.parse(readableData).content);
+            // if (readableData.length > 0) {
+                // Dispatch the event or perform the desired action
+                store.dispatch(messageRecieved(JSON.parse(readableData).content));
+            //   }else{
+             //   store.dispatch(formatScreen());
+            //   }
             //  sentence.push(JSON.parse(readableData).content)// Output: "H
     //         //   characters=JSON.parse(readableData).content;
 
-    store.dispatch(messageRecieved(JSON.parse(readableData).content));
+  //  store.dispatch(messageRecieved(JSON.parse(readableData).content));
 
     // if(componentName == "tab3"){
     //     store.dispatch(messageRecievedCode(JSON.parse(readableData).content));

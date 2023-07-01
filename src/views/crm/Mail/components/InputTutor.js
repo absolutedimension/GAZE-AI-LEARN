@@ -13,6 +13,7 @@ const InputTutor = ({messages,isLoading, sendMessage }) => {
 
   const  history = useSelector((state) => state.tutor.history);
   const  tutorContext = useSelector((state) => state.tutor.tutorContext);
+  const  token = useSelector((state) => state.auth.session.token);
  
   const generateRandomId = () => {
     return Math.floor(Math.random() * 1000000);
@@ -24,6 +25,7 @@ const InputTutor = ({messages,isLoading, sendMessage }) => {
       const newMessage = {
         id: generateRandomId,
         prompt: message,
+        client_id:token,
         last_context:(tutorContext?(tutorContext.join(',')):("")),
         isMe: true,
       };

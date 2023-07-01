@@ -16,7 +16,7 @@ const generateRandomId = () => {
 };
 
 
-export const initializeWebSocket = () => {
+export const initializeWebSocket = (token) => {
   
  //  {dispatch} = store;
   socket = new WebSocket(socketUrl);
@@ -25,21 +25,78 @@ export const initializeWebSocket = () => {
   
   socket.onopen = () => {
     store.dispatch(webSocketConnected());
+  //  const clientId = "YourClientId"; // Replace with the client's unique identifier
+ // console.log("token==="+token);
+  //  socket.send(token); // Send the initial message with the client ID
   };
 
   socket.onmessage = (event) => {
-    const message = JSON.parse(event.data);
-//    console.log("Data from socket=="+message);
-               const bufferData = Buffer.from(JSON.parse(event.data).data); // Example buffer data
+
+    try {
+
+
+
+      const bufferData = Buffer.from(JSON.parse(event.data).data); // Example buffer data
     //         //   var sentence = [];
             const readableData = bufferData.toString();
-            console.log(JSON.parse(readableData).content);
+         //   console.log(JSON.parse(readableData).content);
+            // if (readableData.length > 0) {
+                // Dispatch the event or perform the desired action
+                store.dispatch(messageRecieved(JSON.parse(readableData).content));
+    //  console.log("Message:", message1);
+
+          //           console.log("Data from socket vbuffeererererererere=="+bufferData);
+          // //         //   var sentence = [];
+          //         const readableData = JSON.stringify(bufferData);
+          //         console.log("Data after parse=="+readableData);
+          //         //  sentence.push(JSON.parse(readableData).content)// Output: "H
+          // //         //   characters=JSON.parse(readableData).content;
+
+          // console.log("Client Id=="+JSON.stringify(JSON.parse(readableData)));
+
+          // const bufferDataNew = Buffer.from(JSON.parse(readableData).data); 
+
+          // console.log("last final dfata===="+bufferDataNew);
+      
+          // store.dispatch(messageRecieved(JSON.parse(readableData).content));
+      
+   // const message = JSON.parse(event.data);
+  //  console.log("Data from socket=="+JSON.stringify(message));
+
+//     const message = JSON.parse(event.data).data;
+//     console.log("Data from socket == " + JSON.stringify(message));
+
+//     const chars = message.map(num => String.fromCharCode(num)).join('');
+
+// console.log("charactreeee==="+JSON.parse(chars['clientId']));
+
+//     if (message && message.message && message.message.content) {
+//       const content = message.message.content;
+//       console.log(content);
+//     } else {
+//       console.log("Content not found in the received message.");
+//     }
+  
+          //     const bufferData = Buffer.from(JSON.parse(event.data).data); // Example buffer data
+    //         //   var sentence = [];
+        //    const readableData = (bufferData).toString();
+       //  console.log("All content in socket====="+JSON.stringify(JSON.parse(bufferData.message)));
+
+     //  const message1 = String.fromCharCode(...message.data,message);
+ //   console.log("Data from socket11111111 == " + JSON.parse(JSON.stringify(message1)));
+
+      //  console.log("The string output=="+readableData );
+         //   console.log(JSON.parse(readableData).content);
             //  sentence.push(JSON.parse(readableData).content)// Output: "H
     //         //   characters=JSON.parse(readableData).content;
 
-    store.dispatch(messageRecieved(JSON.parse(readableData).content));
+  //  store.dispatch(messageRecieved(JSON.parse(readableData).content));
 
   //  store.dispatch(extractedData());
+
+} catch (error) {
+  console.error("Error parsing JSON data:", error);
+}
 
   };
 

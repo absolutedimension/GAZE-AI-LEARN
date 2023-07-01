@@ -25,7 +25,14 @@ export const initialState = {
 
   projectTutorStringStream:[],
   projectTutorCharStream:[],
-  projectTutorContext:[]
+  projectTutorContext:[],
+
+  taggedQuestion:[],
+  taggedQuestionTutor:[],
+  previousProjectTutorStringStream:[],
+  onlyText:[],
+
+  previousNewHistory:[]
 
 }
 
@@ -70,13 +77,190 @@ export const tutor = createSlice({
       state.loadingMessageId = responseMessage.id;
     },
     updateHistoryLiveCode: (state, action) => {
+
+
+      const regex = /(\d+)\.\s*(.*)/g;
+      const serialNumbersWithText = [];
+      let match;
+
+      while ((match = regex.exec(state.projectTutorStringStream[0]))) {
+        const serialNumber = match[1];
+        const textPart = match[2];
+        serialNumbersWithText.push({ serialNumber, textPart });
+      }
+
+
+      // const responseMessage = {
+      //   id: generateRandomId(),
+      //   message: action.payload,
+      //   isMe: false
+      // };
+      // state.messages = [...state.messages, responseMessage];
+      state.isLoading = false;
+      state.isStoryCreated = true;
+      state.taggedQuestion = [...state.taggedQuestion,serialNumbersWithText]
+
+
+
       state.projectTutorContext = [...state.projectTutorContext ,...state.projectTutorStringStream]
       state.projectTutorCharStream =[];
       state.projectTutorStringStream = [];
 
+      
+
   },
     takeTest: (state, action) => {
       state.takeTest = action.payload;
+    },
+    formatScreen:(state,action)=>{
+
+
+      // const regex = /(\d+)\.\s*(.*)/g;
+      // const serialNumbersWithText = [];
+      // let match;
+
+      // while ((match = regex.exec(state.projectTutorStringStream[0]))) {
+      //   const serialNumber = match[1];
+      //   const textPart = match[2];
+      //   serialNumbersWithText.push({ serialNumber, textPart });
+      // }
+
+             const regex = /(\d+)\.\s*(.*)/g;
+              const serialNumbersWithText = [];
+              const onlyText = [];
+              const blankText = "";
+              let match;
+              let lastIndex = 0;
+              const projectTutorString = state.projectTutorStringStream[0] || '';
+
+              while ((match = regex.exec(projectTutorString))) {
+                const serialNumber = match[1];
+                const textPart = match[2];
+  
+  // Store the non-matching text before the current match
+            if (match.index > lastIndex) {
+              const nonMatchingText =projectTutorString.substring(lastIndex, match.index);
+            //  serialNumbersWithText.push({ nonMatchingText });
+         //   const id = generateRandomId();
+            const serialNumber = "";
+            const textPart = nonMatchingText;
+           // serialNumbersWithText.push({ nonMatchingText });
+            serialNumbersWithText.push({ serialNumber, textPart });
+         //     serialNumbersWithText.push({ generateRandomId, nonMatchingText });
+            }
+
+            // Store the current match
+          //  const id = generateRandomId();
+            serialNumbersWithText.push({  serialNumber, textPart });
+
+            // Update the lastIndex to the end of the current match
+            lastIndex = regex.lastIndex;
+          }
+
+          // Store the remaining non-matching text after the last match
+          if (lastIndex < projectTutorString.length) {
+            const nonMatchingText = projectTutorString.substring(lastIndex);
+          //  const id = generateRandomId();
+            const serialNumber = "";
+            const textPart = nonMatchingText;
+           // serialNumbersWithText.push({ nonMatchingText });
+            serialNumbersWithText.push({ serialNumber, textPart });
+          }
+
+
+
+
+
+
+
+
+      // const responseMessage = {
+      //   id: generateRandomId(),
+      //   message: action.payload,
+      //   isMe: false
+      // };
+      // state.messages = [...state.messages, responseMessage];
+      state.isLoading = false;
+      state.isStoryCreated = true;
+      state.taggedQuestion = [...state.taggedQuestion,serialNumbersWithText]
+    //  state.onlyText = [...state.taggedQuestion,onlyText]
+
+
+    },
+    formatScreenTutor:(state,action)=>{
+
+
+      // const regex = /(\d+)\.\s*(.*)/g;
+      // const serialNumbersWithText = [];
+      // let match;
+
+      // while ((match = regex.exec(state.projectTutorStringStream[0]))) {
+      //   const serialNumber = match[1];
+      //   const textPart = match[2];
+      //   serialNumbersWithText.push({ serialNumber, textPart });
+      // }
+
+             const regex = /(\d+)\.\s*(.*)/g;
+              const serialNumbersWithText = [];
+              const onlyText = [];
+              const blankText = "";
+              let match;
+              let lastIndex = 0;
+              const newHistoryString = state.newHistory[0] || '';
+
+              while ((match = regex.exec(newHistoryString))) {
+                const serialNumber = match[1];
+                const textPart = match[2];
+  
+  // Store the non-matching text before the current match
+            if (match.index > lastIndex) {
+              const nonMatchingText =newHistoryString.substring(lastIndex, match.index);
+            //  serialNumbersWithText.push({ nonMatchingText });
+         //   const id = generateRandomId();
+            const serialNumber = "";
+            const textPart = nonMatchingText;
+           // serialNumbersWithText.push({ nonMatchingText });
+            serialNumbersWithText.push({ serialNumber, textPart });
+         //     serialNumbersWithText.push({ generateRandomId, nonMatchingText });
+            }
+
+            // Store the current match
+          //  const id = generateRandomId();
+            serialNumbersWithText.push({  serialNumber, textPart });
+
+            // Update the lastIndex to the end of the current match
+            lastIndex = regex.lastIndex;
+          }
+
+          // Store the remaining non-matching text after the last match
+          if (lastIndex < newHistoryString.length) {
+            const nonMatchingText = newHistoryString.substring(lastIndex);
+          //  const id = generateRandomId();
+            const serialNumber = "";
+            const textPart = nonMatchingText;
+           // serialNumbersWithText.push({ nonMatchingText });
+            serialNumbersWithText.push({ serialNumber, textPart });
+          }
+
+
+
+
+
+
+
+
+      // const responseMessage = {
+      //   id: generateRandomId(),
+      //   message: action.payload,
+      //   isMe: false
+      // };
+      // state.messages = [...state.messages, responseMessage];
+      state.isLoading = false;
+      state.isStoryCreated = true;
+      state.taggedQuestionTutor = [...state.taggedQuestion,serialNumbersWithText]
+    //  state.onlyText = [...state.taggedQuestion,onlyText]
+
+
     },
     deleteHistoryUserStory: (state, action) => {
       state.userStoryContext = [...state.userStoryContext ,...state.userStoryStringStream]
@@ -85,10 +269,12 @@ export const tutor = createSlice({
     },
     deleteHistoryimplementCodeStringStream: (state, action) => {
 
-      state.projectTutorContext = [...state.projectTutorContext ,...state.implementCodeStringStream];
-      state.projectTutorStringStream = [...state.projectTutorStringStream ,...state.implementCodeStringStream]
-      state.implementCodeStringStream = [];
-      state.implementCodeCharStream = [];
+      state.projectTutorContext = [...state.projectTutorContext ,state.implementCodeStringStream];
+   //   state.projectTutorStringStream = [...state.projectTutorStringStream ,...state.implementCodeStringStream]
+      state.projectTutorStringStream = [];
+      state.projectTutorCharStream = [];
+      state.previousProjectTutorStringStream = [];
+   //   state.implementCodeCharStream = [];
     },
     setMessageAddress: (state, action) => {
       state.messageAddress = action.payload;
@@ -173,14 +359,19 @@ export const tutor = createSlice({
 
       }else if(state.messageAddress != null && state.messageAddress == "tutor"){
 
+        state.previousNewHistory[0] =state.newHistory[0]
         state.newHistory = []
+
+       // state.newHistory = []
         state.history = [...state.history, action.payload]
         state.newHistory = [...state.newHistory, state.history.join('')]
 
       }
       else if(state.messageAddress != null && state.messageAddress == "projectTutor"){
 
+        state.previousProjectTutorStringStream[0] =state.projectTutorStringStream[0]
         state.projectTutorStringStream = []
+      
         state.projectTutorCharStream = [...state.projectTutorCharStream, action.payload]
         state.projectTutorStringStream = [...state.projectTutorStringStream, state.projectTutorCharStream.join('')]
 
@@ -230,6 +421,7 @@ export const tutor = createSlice({
       state.tutorContext = [...state.tutorContext ,...state.newHistory]
       state.history = [];
       state.newHistory = [];
+      state.previousNewHistory = [];
     },
 
 
@@ -301,7 +493,7 @@ export const tutor = createSlice({
   },
 })
 
-export const { sendPromptChatGPT,deleteHistoryimplementCodeStringStream,deleteHistoryUserStory, updateHistoryLiveCode,setMessageAddress,updateHistory, newCardAdded, extractedData, showUserStory, sendMessageToChatBox, takeTest, setNewStory, setChatFromStream, webSocketConnected, webSocketError, webSocketDisconneted, messageRecieved, messageSent } = tutor.actions
+export const { sendPromptChatGPT,formatScreen,formatScreenTutor,deleteHistoryimplementCodeStringStream,deleteHistoryUserStory, updateHistoryLiveCode,setMessageAddress,updateHistory, newCardAdded, extractedData, showUserStory, sendMessageToChatBox, takeTest, setNewStory, setChatFromStream, webSocketConnected, webSocketError, webSocketDisconneted, messageRecieved, messageSent } = tutor.actions
 
 export default tutor.reducer
 

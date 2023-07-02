@@ -25,12 +25,17 @@ const Card = React.forwardRef((props, ref) => {
 
     const cardClass = classNames(
         'card',
+        'card-no-background', // Add this class to remove the background
         className,
-        bordered ? `card-border` : `card-shadow`,
-        clickable && 'cursor-pointer user-select-none'
+      //  bordered ? `card-border` : `card-shadow`,
+        clickable && 'cursor-pointer user-select-none',
+        {
+            'hover:bg-gray-100': clickable, // Change color on hover
+        }
     )
 
-    const cardBodyClasss = classNames('card-body', bodyClass)
+   // const cardBodyClasss = classNames('card-body', bodyClass)
+    const cardBodyClasss = classNames('card-body', 'card-no-shadow', bodyClass) // Remove the shadow class
     const cardHeaderClass = classNames(
         'card-header',
         headerBorder && 'card-header-border',

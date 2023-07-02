@@ -75,7 +75,7 @@ const appsRoute = [
     },
     {
         key: 'apps.learn',
-        path: `${APP_PREFIX_PATH}/learn/code-env`,
+        path: `${APP_PREFIX_PATH}/learn`,
         component: React.lazy(() => import('views/crm/Mail')),
         authority: [ADMIN, USER],
         meta: {

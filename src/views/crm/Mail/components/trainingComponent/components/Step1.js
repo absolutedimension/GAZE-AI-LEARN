@@ -1,8 +1,26 @@
 import React from 'react'
 import { DoubleSidedImage } from 'components/shared'
 import { Button } from 'components/ui'
+import CryptoDashboard from 'views/crypto/CryptoDashboard'
+import { useNavigate } from 'react-router-dom'
+import { Card, Avatar, Notification, toast } from 'components/ui'
 
 const Step1 = ({ onNext, onSkip }) => {
+
+    const navigate = useNavigate()
+
+    const handleStart = () => {
+      
+        
+      //  navigate('views/crypto/CryptoDashboard')
+     //   navigate(`/app/crypto/CryptoDashboard`)
+        navigate('/app/crm/customers')
+        toast.push(
+            <Notification title={'Successfuly Deleted'} type="success">
+                Customer successfuly deleted
+            </Notification>
+        )
+    }
     return (
         <div className="text-center">
             <DoubleSidedImage
@@ -18,7 +36,7 @@ const Step1 = ({ onNext, onSkip }) => {
                 What apllication/features you want to develop,in Brief.
             </p>
             <div className="mt-8 max-w-[350px] mx-auto">
-                <Button className="mb-2" variant="solid" onClick={onNext} block>
+                <Button className="mb-2" variant="solid" onClick={handleStart} block>
                     Get started
                 </Button>
                 {/* <Button variant="plain" onClick={onSkip} block>

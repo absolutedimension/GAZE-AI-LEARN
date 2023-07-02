@@ -5,6 +5,7 @@ import { Timeline } from 'components/ui'
 import ChatComponent from './ChatComponent'
 import { useSelector } from 'react-redux'
 import TrainingMain from './TrainingMain'
+import FormattingMaster from './trainingComponent/components/FormattingMaster'
 //import { showEditor } from '../store/stateSlice'
 
 
@@ -25,11 +26,11 @@ const OnlineEditorFrame = () => {
                 allowFullScreen
                 style={{ height: '100%', width: '100%'}}
             ></iframe>
-            ):(<TrainingMain/>)}
+            ):(<FormattingMaster/>)}
          </div>
        
-          
-            <TutorChatList />
+          <TrainingMain/>
+            {/* <TutorChatList /> */}
             {/* {<ChatComponent/>} */}
         </div>
     )

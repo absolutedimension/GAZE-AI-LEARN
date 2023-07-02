@@ -3,6 +3,7 @@ import ThreeDotsWave from 'components/ui/ThreeWaveDots';
 import ElegantText from './ElegantText';
 import './Blog.css';
 import ReactMarkdown from 'react-markdown';
+import { AdaptableCard } from 'components/shared'
 import { FiMousePointer } from 'react-icons/fi';
 import WebSocketComponent from './WebSocketComponent.js.js';
 import { useSelector, useDispatch } from 'react-redux'
@@ -79,6 +80,7 @@ const ChatMessage = ({ chatMessage, isLoading, loadingMessageId }) => {
 
     // <div>{chatMessage}</div>
     // <div>{chatMessage.message}</div>
+   
     <div
       key={chatMessage.length}
       className={`flex ${chatMessage.isMe ? 'justify-end' : 'justify-start'}`}
@@ -91,16 +93,19 @@ const ChatMessage = ({ chatMessage, isLoading, loadingMessageId }) => {
       >
         {isLoading && loadingMessageId === chatMessage.id ? (
           <div className="flex">
-            <div className="flex-grow">{chatMessage.message}</div>
+            <AdaptableCard>{chatMessage.message}</AdaptableCard>
            
           </div>
         ) : (
-           <div> {chatMessage.message}</div>
+          
+          <AdaptableCard> {chatMessage.message}
+           </AdaptableCard>
             // <div> {chatMessage.isMe?(chatMessage.message):(<WebSocketComponent/>)}</div>
          
         )}
       </div>
     </div>
+  
   );
 };
 

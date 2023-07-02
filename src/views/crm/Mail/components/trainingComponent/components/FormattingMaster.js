@@ -56,18 +56,18 @@ function FormattingMaster() {
                     )
                 },
             },
-            // {
-            //     header: 'First Name',
-            //     accessorKey: 'firstName',
-            // },
+            {
+                header: 'Modules',
+                accessorKey: 'firstName',
+            },
             // {
             //     header: 'Last Name',
             //     accessorKey: 'lastName',
             // },
-            {
-            //    header: 'Age',
-                accessorKey: 'age',
-            },
+            // {
+            // //    header: 'Age',
+            //     accessorKey: 'age',
+            // },
             // {
             //     header: 'Visits',
             //     accessorKey: 'visits',

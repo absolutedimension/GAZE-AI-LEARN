@@ -140,6 +140,13 @@ const ToggleEditor = ({ showEditor }) => {
 const TutorChatList = ({newCardAddedIndex,history,newHistory,messages}) => {
     const dispatch = useDispatch();
     const scrollBarRef = useRef(null);
+
+    const chatContainerRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll to the bottom of the chat container whenever messages are updated
+    chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+  }, [messages]);
   //  const [ messages ,setMessages] = useState([]);
    newCardAddedIndex = useSelector((state) => state.tutor.newCardAddedIndex)
    // Add the CodeCopyBtn component to our PRE element
@@ -373,7 +380,14 @@ const markdownContent = newHistory[0] ? (
                     loading={loading}
                 >
    
-   <div className="mt-8  overflow-y-auto max-h-106">
+   <div
+      className={classNames(
+        'chat-container',
+        'overflow-y-auto',
+        'max-h-99', // Adjust the max-h value as needed
+      )}
+      ref={chatContainerRef}
+    >
       {  messages.map((chatMessage) => (
         <ChatMessage key={messages.length} chatMessage={chatMessage} isLoading={isLoading} loadingMessageId={loadingMessageId} />
 ))

@@ -122,7 +122,7 @@ const QuickStartItem = (props) => {
     }
 
     return (
-        <Card className="mb-1">
+        <Card className="mb-1" bordered={false} onClick={handleClick} clickable={true}>
             <div className="md:flex items-center md:justify-between gap-4">
                 <div className="flex items-center gap-4">
                     {!available ? (
@@ -130,26 +130,22 @@ const QuickStartItem = (props) => {
                             <HiOutlineLockClosed />
                         </span>
                     ) : (
-                        <span
-                            className={`font-semibold text-xl rounded-full border-2 min-w-[30px] h-[30px] flex items-center justify-center ${borderTheme} ${textTheme}`}
-                        >
-                            {index}
-                        </span>
+                      ""
                     )}
                     <div>
                         <h5>{title}</h5>
                         <p>{desc}</p>
                     </div>
                 </div>
-                <Button
+                {/* <Button
                     disabled={!true}
-                    variant="solid"
+                    variant="transparent"
                     className="mt-4 md:mt-0"
                     size="sm"
                     onClick={handleClick}
                 >
                     {btnText}
-                </Button>
+                </Button> */}
             </div>
         </Card>
     )
@@ -206,79 +202,6 @@ const FormatTrainingTutor = ({userStories,loading,setCurrentTab}) => {
 
 
 
-//     const renderCodeBlock = ({ language, value }) => {
-//         return (
-//             <div className="code-block-container">
-//             <SyntaxHighlighter  language={language}>
-//               {value}
-//               <p>Testing the data</p>
-//             </SyntaxHighlighter>
-//             {/* <p>Testing the data</p> */}
-//             {/* <button className="copy-code-button" onClick={() => handleClick(value)}>
-//               Copy Code
-//             </button> */}
-//           </div>
-//         );
-//       };
-      
-  
-
-
-// const markdownContent = taggedQuestion[0] ? (
-//     <ReactMarkdown escapeHtml={true} renderer={renderCodeBlock} className="blog-content">
-//       {/* {history.replace(pattern, ' [$1]("") :')} */}
-//       {/* {newHistory[0].replace(pattern, ' [$1](""):')} */}
-//       {/* {parseDataToArray({history})} */}
-//       {taggedQuestion[0]}
-//     </ReactMarkdown>
-//   ) : null;
-
-    // const matches = taggedQuestion[0].match(codePattern);
-    //                 if (matches) {
-    //                     // Extracted code blocks
-    //                     matches.forEach((match) => {
-    //                         console.log(match);
-    //                     });
-    //                 };
-
-
-//     const MarkdownWithCodeDetection = ({ markdown }) => {
-//         const handleRenderCode = (props) => {
-//           const { value } = props;
-      
-//           // Do something with the code block value
-//        //   console.log(value);
-
-               
-         
-          
-              
-//    //    return    <SyntaxHighlighter language="jsx"> { value}</SyntaxHighlighter>
-      
-//        return    <code>{value}</code>;
-//         };
-      
-//         const renderers = {
-//           code: handleRenderCode,
-//         };
-      
-//         return <ReactMarkdown renderers={renderers} children={markdown} />;
-//       };
-// const data = taggedQuestion ?( taggedQuestion[taggedQuestion.length - 1] ): ("");
-
-// const matches = (data.textPart).match(codePattern);
-// if (matches) {
-//     // Extracted code blocks
-//     matches.forEach((match) => {
-//         return(
-
-//                 <SyntaxHighlighter language={"jsx"} style={vscDarkPlus}>
-//         {match}
-//          </SyntaxHighlighter>
-//         );
-       
-//     });
-// }
   
 
     const renderedItems = taggedQuestionTutor[0]

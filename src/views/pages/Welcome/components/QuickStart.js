@@ -122,7 +122,7 @@ const QuickStartItem = (props) => {
     }
 
     return (
-        <Card className="mb-1">
+        <Card className="mb-1" bordered={false} onClick={handleClick} clickable={true}>
             <div className="md:flex items-center md:justify-between gap-4">
                 <div className="flex items-center gap-4">
                     {!available ? (
@@ -130,18 +130,14 @@ const QuickStartItem = (props) => {
                             <HiOutlineLockClosed />
                         </span>
                     ) : (
-                        <span
-                            className={`font-semibold text-xl rounded-full border-2 min-w-[30px] h-[30px] flex items-center justify-center ${borderTheme} ${textTheme}`}
-                        >
-                            {index}
-                        </span>
+                       ""
                     )}
                     <div>
                         <h5>{title}</h5>
                         <p>{desc}</p>
                     </div>
                 </div>
-                <Button
+                {/* <Button
                     disabled={!true}
                     variant="solid"
                     className="mt-4 md:mt-0"
@@ -149,7 +145,7 @@ const QuickStartItem = (props) => {
                     onClick={handleClick}
                 >
                     {btnText}
-                </Button>
+                </Button> */}
             </div>
         </Card>
     )

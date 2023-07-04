@@ -89,7 +89,7 @@ const ChatMessage = ({ chatMessage, isLoading, loadingMessageId }) => {
       <div
         className={`${
           chatMessage.isMe ? 'rounded-bl-none' : 'rounded-br-none'
-        } border p-3 flex-grow`}
+        } border p-0 flex-grow`}
       >
         {isLoading && loadingMessageId === chatMessage.id ? (
           <div className="flex">

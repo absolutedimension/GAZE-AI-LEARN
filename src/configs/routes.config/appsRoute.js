@@ -24,6 +24,13 @@ const appsRoute = [
             pageContainerType: 'gutterless',
         },
     },
+
+    {
+            key: 'appsCrypto.dashboard',
+            path: `${APP_PREFIX_PATH}/crypto/dashboard`,
+            component: React.lazy(() => import('views/crypto/CryptoDashboard')),
+            authority: [ADMIN, USER],
+        },
     // {
     //     key: 'appsProject.issue',
     //     path: `${APP_PREFIX_PATH}/project/issue`,
@@ -77,6 +84,16 @@ const appsRoute = [
         key: 'apps.learn',
         path: `${APP_PREFIX_PATH}/learn`,
         component: React.lazy(() => import('views/crm/Mail')),
+        authority: [ADMIN, USER],
+        meta: {
+            pageContainerType: 'gutterless',
+            footer: false,
+        },
+    },
+    {
+        key: 'apps.courses',
+        path: `${APP_PREFIX_PATH}/courses`,
+        component: React.lazy(() => import('views/crm/Mail/components/trainingComponent/components/StepsController')),
         authority: [ADMIN, USER],
         meta: {
             pageContainerType: 'gutterless',

@@ -6,6 +6,7 @@ import { injectReducer } from 'store/index'
 import reducer from './store'
 
 import OnlineEditorFrame from './components/OnlineEditorFrame'
+import TrainingMain from './components/TrainingMain'
 
 injectReducer('crmMail', reducer)
 
@@ -17,6 +18,8 @@ const Mail = () => {
         >
              {/*<MailSidebar />  */}
               <OnlineEditorFrame />
+
+              {/* <TrainingMain/> */}
              {/* <TrainingTopics/> */}
            
             {/* <QuestionList/> */}

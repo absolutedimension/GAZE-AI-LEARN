@@ -11,12 +11,13 @@ import MonacoEditorTraining from './trainingComponent/components/MonacoEditorTra
 import AppView from 'components/ui/utils/AppView';
 
 import { Card, Segment } from 'components/ui'
+import CourseContentChatBox from './CourseContentChatBox';
 
 //import { showEditor } from '../store/stateSlice'
 
 
 
-const OnlineEditorFrame = () => {
+const CoursesLauncher = () => {
 
    const showEditor = useSelector((state) => state.crmMail.state.showEditor)
    const options = {
@@ -51,11 +52,11 @@ const OnlineEditorFrame = () => {
             ):(<FormattingMaster/>)}
          </div>
        
-          {/* <TrainingMain/> */}
-            <TutorChatList />
+          <CourseContentChatBox/>
+            {/* <TutorChatList /> */}
             {/* {<ChatComponent/>} */}
         </div>
     )
 }
 
-export default OnlineEditorFrame
+export default CoursesLauncher

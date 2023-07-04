@@ -65,6 +65,7 @@ import { eventNames } from 'process'
 import Event from 'views/account/ActivityLog/components/Event'
 import { eventListeners } from '@popperjs/core'
 import NewChatComponent from './trainingComponent/components/NewChatComponent'
+import CourseContentChatMessages from './trainingComponent/components/CourseContentChatMessages'
 
    
 
@@ -144,7 +145,7 @@ const ToggleEditor = ({ showEditor }) => {
 
 
 
-const TutorChatList = ({newCardAddedIndex,history,newHistory,messages}) => {
+const CourseContentChatBox = ({newCardAddedIndex,history,newHistory,messages}) => {
     const dispatch = useDispatch();
     const scrollBarRef = useRef(null);
 
@@ -408,7 +409,7 @@ const markdownContent = newHistory[0] ? (
     >
           <article class="prose prose-slate">
             
-          <NewChatComponent chatWindowRef={chatWindowRef } isObjectUpdated={isObjectUpdated}></NewChatComponent >
+          <CourseContentChatMessages chatWindowRef={chatWindowRef } isObjectUpdated={isObjectUpdated}></CourseContentChatMessages >
                       </article>
        
       {/* {  messages.map((chatMessage) => (
@@ -557,4 +558,4 @@ const markdownContent = newHistory[0] ? (
     )
 }
 
-export default TutorChatList;
+export default CourseContentChatBox;

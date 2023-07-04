@@ -36,7 +36,7 @@ const Step1 = ({ onNext, onSkip }) => {
                 What apllication/features you want to develop,in Brief.
             </p>
             <div className="mt-8 max-w-[350px] mx-auto">
-                <Button className="mb-2" variant="solid" onClick={handleStart} block>
+                <Button className="mb-2" variant="solid" onClick={onNext} block>
                     Get started
                 </Button>
                 {/* <Button variant="plain" onClick={onSkip} block>

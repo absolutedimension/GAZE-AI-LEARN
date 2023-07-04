@@ -1,6 +1,8 @@
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { apiAskCourseDetails, apiAskUniverse } from 'services/AiBotService'
+import ReactMarkdown from 'react-markdown';
+//import {json} from 'json';
 
 export const initialState = {
   id: 1,
@@ -32,15 +34,52 @@ export const initialState = {
   previousProjectTutorStringStream:[],
   onlyText:[],
 
-  previousNewHistory:[]
+  previousNewHistory:[],
+  isStepCreated:false
 
 }
+
+
+const pattern = /(\d+\.\s[\w\s]+):/g;
 
 const generateRandomId = () => {
   return Math.floor(Math.random() * 1000000);
 };
 
 
+
+
+// export const writeFile = (data) => {
+//   const jsonString = JSON.stringify(data);
+  
+//   return json.writeFile('data.json', jsonString)
+//     .then(() => {
+//       console.log('JSON file has been saved.');
+//     })
+//     .catch((error) => {
+//       console.error('Error writing JSON file:', error);
+//     });
+// };
+
+export const writeFileSteps = createAsyncThunk('tutor/writeFileSteps', async (data) => {
+  console.log("Inside api call" + data);
+
+
+ const jsonString = JSON.stringify(data);
+  
+  // const response= json.writeFile('data1.json', jsonString)
+  //   .then(() => {
+  //     console.log('JSON file has been saved.');
+  //      response = true;
+  //   })
+  //   .catch((error) => {
+  //     console.error('Error writing JSON file:', error);
+  //     response = false;
+  //   });
+
+
+  //return response
+})
 
 
 export const getChatGPTApiData = createAsyncThunk('tutor/getChatGPTApiData', async (data) => {
@@ -75,6 +114,16 @@ export const tutor = createSlice({
       state.messages = [...state.messages, responseMessage];
       state.isLoading = true;
       state.loadingMessageId = responseMessage.id;
+    },
+    updateRemovedRow:(state, action) => {
+
+      var row = action.payload;
+      console.log("in side remode reducers===="+JSON.stringify(row.original.id))
+    //  state.messages = [];
+    const updatedData = state.messages.filter((item) => item.id !== row.original.id);
+    state.messages = [];
+      state.messages = [...state.messages, ...updatedData];
+    
     },
     updateHistoryLiveCode: (state, action) => {
 
@@ -220,13 +269,17 @@ export const tutor = createSlice({
             const serialNumber = "";
             const textPart = nonMatchingText;
            // serialNumbersWithText.push({ nonMatchingText });
-            serialNumbersWithText.push({ serialNumber, textPart });
-         //     serialNumbersWithText.push({ generateRandomId, nonMatchingText });
+         //   serialNumbersWithText.push({ serialNumber, '<li>'+ {textPart} +'</li>' });
+            serialNumbersWithText.push({ serialNumber, textPart});
+
+          //    serialNumbersWithText.push({ generateRandomId, nonMatchingText });
             }
 
             // Store the current match
           //  const id = generateRandomId();
             serialNumbersWithText.push({  serialNumber, textPart });
+         //   serialNumbersWithText.push({ serialNumber, textPart: `<p>${textPart}</p>` });
+
 
             // Update the lastIndex to the end of the current match
             lastIndex = regex.lastIndex;
@@ -240,6 +293,8 @@ export const tutor = createSlice({
             const textPart = nonMatchingText;
            // serialNumbersWithText.push({ nonMatchingText });
             serialNumbersWithText.push({ serialNumber, textPart });
+          //  serialNumbersWithText.push({ serialNumber, textPart: `<p>${textPart}</p>` });
+
           }
 
 
@@ -359,12 +414,29 @@ export const tutor = createSlice({
 
       }else if(state.messageAddress != null && state.messageAddress == "tutor"){
 
+      
+
         state.previousNewHistory[0] =state.newHistory[0]
         state.newHistory = []
 
        // state.newHistory = []
         state.history = [...state.history, action.payload]
         state.newHistory = [...state.newHistory, state.history.join('')]
+
+
+        // const markdownContent = state.newHistory[0] ? (
+        //   <ReactMarkdown escapeHtml={true}  className="blog-content">
+        //     {/* {history.replace(pattern, ' [$1]("") :')} */}
+        //     {state.newHistory[0].replace(pattern, ' [$1](#):')}
+        //     {/* {parseDataToArray({history})} */}
+        //   </ReactMarkdown>
+        // ) : null;
+
+        state.messages.forEach((obj) => {
+          if (obj.id === state.loadingMessageId) {
+            obj.subRows = [{id:obj.id,message:state.newHistory[0].replace(pattern, ' [$1](#):'),isMe:false}];
+          }
+        });
 
       }
       else if(state.messageAddress != null && state.messageAddress == "projectTutor"){
@@ -490,10 +562,16 @@ export const tutor = createSlice({
         state.isStoryCreated = true;
         state.userStories = [...state.userStories,serialNumbersWithText]
       })
+      .addCase(writeFileSteps.fulfilled, (state, action) => {
+     
+        state.isStepCreated = action.payload;
+    //    state.isStoryCreated = true;
+     //   state.userStories = [...state.userStories,serialNumbersWithText]
+      })
   },
 })
 
-export const { sendPromptChatGPT,formatScreen,formatScreenTutor,deleteHistoryimplementCodeStringStream,deleteHistoryUserStory, updateHistoryLiveCode,setMessageAddress,updateHistory, newCardAdded, extractedData, showUserStory, sendMessageToChatBox, takeTest, setNewStory, setChatFromStream, webSocketConnected, webSocketError, webSocketDisconneted, messageRecieved, messageSent } = tutor.actions
+export const { sendPromptChatGPT,formatScreen,updateRemovedRow,formatScreenTutor,deleteHistoryimplementCodeStringStream,deleteHistoryUserStory, updateHistoryLiveCode,setMessageAddress,updateHistory, newCardAdded, extractedData, showUserStory, sendMessageToChatBox, takeTest, setNewStory, setChatFromStream, webSocketConnected, webSocketError, webSocketDisconneted, messageRecieved, messageSent } = tutor.actions
 
 export default tutor.reducer
 

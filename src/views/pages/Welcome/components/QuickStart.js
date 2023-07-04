@@ -122,6 +122,7 @@ const QuickStartItem = (props) => {
     }
 
     return (
+     
         <Card className="mb-1" bordered={false} onClick={handleClick} clickable={true}>
             <div className="md:flex items-center md:justify-between gap-4">
                 <div className="flex items-center gap-4">

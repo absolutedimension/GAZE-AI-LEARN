@@ -8,7 +8,7 @@ import {
     flexRender,
 } from '@tanstack/react-table'
 import { dataWithSubRows } from './data'
-import { HiOutlinePlusCircle, HiOutlineMinusCircle } from 'react-icons/hi'
+import { HiOutlinePlusCircle, HiOutlineMinusCircle,HiOutlineArrowNarrowRight,HiOutlineArrowNarrowDown } from 'react-icons/hi'
 
 const { Tr, Th, Td, THead, TBody } = Table
 
@@ -27,9 +27,9 @@ function FormattingMaster() {
                             }}
                         >
                             {table.getIsAllRowsExpanded() ? (
-                                <HiOutlineMinusCircle />
+                                <HiOutlineArrowNarrowDown  style={{ color: 'purple' }} />
                             ) : (
-                                <HiOutlinePlusCircle />
+                                <HiOutlineArrowNarrowRight style={{ color: 'purple' }}  />
                             )}
                         </button>
                     )
@@ -45,9 +45,9 @@ function FormattingMaster() {
                                     }}
                                 >
                                     {row.getIsExpanded() ? (
-                                        <HiOutlineMinusCircle />
+                                        <HiOutlineArrowNarrowDown style={{ color: 'purple' }}  />
                                     ) : (
-                                        <HiOutlinePlusCircle />
+                                        <HiOutlineArrowNarrowRight style={{ color: 'purple' }}  />
                                     )}
                                 </button>
                             ) : null}

@@ -17,6 +17,7 @@ import ReactMarkdown from 'react-markdown';
 import {CodeSnippet} from './CodeSnippet.js';
 
 import { SyntaxHighlighter } from 'components/shared'
+import ReactHtmlParser from 'html-react-parser'
 
 import { sendPromptChatGPT ,getChatGPTApiData,sendMessageToChatBox,getDetailUserStory,setCurrentTabUserStory} from "../../../../../../store/tutor/userStorySlice.js";
 
@@ -242,7 +243,19 @@ const FormatTrainingTutor = ({userStories,loading,setCurrentTab}) => {
                   {ObjectStory.textPart}
                   </SyntaxHighlighter>):
 
-                  (ObjectStory.textPart)
+                 ( 
+                  <article class="prose prose-slate">
+                  { ObjectStory.textPart }
+                </article>
+                 
+                 
+                 
+                //  <div className="prose">
+                //   <p>{ReactHtmlParser(ObjectStory.textPart || '')}</p>
+                //   {/* static display text to be remove */}
+
+                //   </div>
+                  )
                   
                   
                   }
